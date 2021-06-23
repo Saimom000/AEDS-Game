@@ -7,10 +7,10 @@ using namespace std;
 class Esquiva
 {
 private:
-    /* data */
+  /* data */
 public:
-    Esquiva(/* args */);
-    ~Esquiva();
+  Esquiva(/* args */);
+  ~Esquiva();
 };
 
 Esquiva::Esquiva(/* args */)

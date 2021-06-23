@@ -1,5 +1,6 @@
 #include <string>
 #include <iostream>
+#include <vector>
 #include "Arma.cpp"
 #include "Magia.cpp"
 #include "Accessdata.cpp"
@@ -9,32 +10,23 @@ using namespace std;
 class Personagem
 {
 private:
-    int jogador;
-    int id;
-    string classe;
-    string nome;
-    int vida;
-    int mana;
-    int forca;
-    int magiah;
-    int armadura;
-    int resistencia;
-    int agilidade;
-    //Arma arma[];
-    Magia magia[];
-    string abreArquivo(string nomeClasse);
-    int *obtemAtributos(string nomeClasse);
-    int calcularDesvio(int agilidade);
+  int jogador;
+  int id;
+  string classe;
+  string nome;
+  int vida;
+  int mana;
+  int forca;
+  int magiah;
+  int armadura;
+  int resistencia;
+  int agilidade;
+  vector<Arma> armas;
+  vector<Magia> magias;
 
 public:
-    Personagem(string classePersonagem);
-    int atacar();
-    int receberDano(int dano, int agilidade);
-    ~Personagem();
-};
-
-Personagem::Personagem(string classePersonagem)
-{
+  Personagem(string classePersonagem)
+  {
     int qtdAtributos = 8;
     Accessdata *a = new Accessdata(qtdAtributos);
     int *atributos = a->obtemAtributos(classePersonagem);
@@ -46,33 +38,32 @@ Personagem::Personagem(string classePersonagem)
     this->armadura = atributos[5];
     this->resistencia = atributos[6];
     this->agilidade = atributos[7];
+  }
 
-    // delete[] a;
-}
-
-int Personagem::calcularDesvio(int agilidade)
-{
-    int a;
-    a = (rand() % 100);
+  int calcularDesvio(int agilidade)
+  {
+    int a = rand() % 100;
     if (a <= agilidade)
     {
-        return 1; // desvia
+      return 1; // desvia
     }
 
     return 0; //nao desvia
-}
+  }
 
-int Personagem::receberDano(int dano, int agilidade)
-{
+  int receberDano(int dano, int agilidade)
+  {
 
     int esquiva = calcularDesvio(agilidade);
-    if(esquiva == 0){
-        int danoArmaRecebido = dano * 0.2;
-        if (dano > this->vida)
-            this->vida = 0;
-        else
-            this->vida -= dano;
+    if (esquiva == 0)
+    {
+      int danoArmaRecebido = dano * 0.2;
+      if (dano > this->vida)
+        this->vida = 0;
+      else
+        this->vida -= dano;
     }
 
-    return  0;
-}
+    return 0;
+  }
+};

@@ -10,66 +10,55 @@ using namespace std;
 class Accessdata
 {
 private:
-    int *atributos;
-    int qtdAtributos;
-    string abreArquivo(string nomeDaClasse);
+  int *atributos;
+  int qtdAtributos;
+  string abreArquivo(string nomeDaClasse);
 
 public:
-    Accessdata(int qtdAtributos);
-    int *obtemAtributos(string nomeDaClasse);
+  Accessdata(int qtdAtributos);
+  int *obtemAtributos(string nomeDaClasse);
 };
 
 Accessdata::Accessdata(int qtdAtributos)
 {
-    //você deverá retorar este vetor de atributos para dentro do seu programa no momento de instanciar um novo personagem
-    this->qtdAtributos = qtdAtributos;
-    this->atributos = new int[qtdAtributos]; //quantidade de atributos das classes do jogo
+  //você deverá retorar este vetor de atributos para dentro do seu programa no momento de instanciar um novo personagem
+  this->qtdAtributos = qtdAtributos;
+  this->atributos = new int[qtdAtributos]; //quantidade de atributos das classes do jogo
 }
 
 string Accessdata::abreArquivo(string nomeDaClasse)
 {
-    fstream arq;
+  fstream arq;
 
-    arq.open(nomeDaClasse, ios::in);
+  arq.open(nomeDaClasse, ios::in);
 
-    string linha;
+  string linha;
 
-    //Faz a leitura linha a linha do arquivo texto (string linha armazena a linha lida do arquivo)
-    if (arq.is_open())
-    {
-        getline(arq, linha);
-    }
+  //Faz a leitura linha a linha do arquivo texto (string linha armazena a linha lida do arquivo)
+  if (arq.is_open())
+  {
+    getline(arq, linha);
+  }
 
-    arq.close();
+  arq.close();
 
-    return linha;
+  return linha;
 }
 
 int *Accessdata::obtemAtributos(string nomeDaClasse)
 {
-    string linha = abreArquivo(nomeDaClasse);
 
-    char str[linha.size()];
+  string s = abreArquivo(nomeDaClasse);
+  string delimiter = ",";
 
-    //converte a string para um vetor de caractere
-    for (int i = 0; i < linha.size(); i++)
-        str[i] = linha[i];
+  size_t pos = 0;
+  int i = 0;
+  while ((pos = s.find(delimiter)) != std::string::npos)
+  {
+    string token = s.substr(0, pos);
+    this->atributos[i++] = stoi(token);
+    s.erase(0, pos + delimiter.length());
+  }
 
-    char ch[2] = ","; //especifica o caractere que será usado para dividir a string (split)
-
-    char *token;
-    char *palavra;
-
-    int i = 0;
-
-    token = strtok(str, ch);
-    while (token != NULL)
-    {
-        palavra = token;
-        token = strtok(NULL, ch);
-
-        this->atributos[i++] = atoi(palavra);
-    }
-
-    return this->atributos;
+  return this->atributos;
 }
