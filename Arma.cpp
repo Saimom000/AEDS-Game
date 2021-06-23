@@ -50,5 +50,3 @@ int Arma::CalcularDano(/* args */)
 Arma::~Arma()
 {
 }
-
-

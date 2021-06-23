@@ -1,6 +1,7 @@
 #include <string>
 #include <iostream>
 #include <ctime>
+#include <vector>
 #include "Arma.cpp"
 #include "Magia.cpp"
 #include "Accessdata.cpp"
@@ -23,8 +24,8 @@ private:
     int armadura;
     int resistencia;
     int agilidade;
-    //Arma arma[];
-    Magia magia[];
+    vector<Arma> armas;
+    vector<Magia> magias;
     string abreArquivo(string nomeClasse);
     int *obtemAtributos(string nomeClasse);
     int calcularDesvio(int agilidade);
@@ -52,6 +53,7 @@ Personagem::Personagem(string classePersonagem)
     this->armadura = atributos[5];
     this->resistencia = atributos[6];
     this->agilidade = atributos[7];
+  }
 
     // delete a;
     // delete atributos;
@@ -63,7 +65,7 @@ int Personagem::calcularDesvio()
     a = (rand() % 100)+1;
     if (a <= this.agilidade)
     {
-        return 1; // desvia
+      return 1; // desvia
     }
 
     return 0; //nao desvia
