@@ -1,5 +1,5 @@
-#include <string.h>
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -12,7 +12,19 @@ private:
     int danomax;
     int durabilidade;
     int *tipoperso;
+
 public:
     Arma(/* args */);
     ~Arma();
 };
+
+Arma::Arma(/* args */)
+{
+
+}
+
+Arma::~Arma()
+{
+}
+
+

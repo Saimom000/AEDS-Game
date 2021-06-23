@@ -2,9 +2,6 @@
 #include <stdlib.h>
 #include <fstream>
 
-#include <string.h>
-#include <stdio.h>
-
 using namespace std;
 
 class Esquiva

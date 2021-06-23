@@ -1,5 +1,5 @@
-#include <string.h>
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -17,3 +17,10 @@ public:
     ~Magia();
 };
 
+Magia::Magia()
+{
+}
+
+Magia::~Magia()
+{
+}
