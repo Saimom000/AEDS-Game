@@ -10,17 +10,61 @@ using namespace std;
 
 Personagem *player1, *player2;
 
+void jogador1(){
+  cout << "Escolha  das opcoes jogador 1\n";
+  cout <<"1 - Atacar com arma\n"
+          <<"2 - Atacar com magia\n"
+          <<"3 - Trocar arma\n";
+}
+
+void jogador2(){
+  cout << "Escolha  das opcoes jogador 2\n";
+  cout <<"1 - Atacar com arma\n"
+          <<"2 - Atacar com magia\n"
+          <<"3 - Trocar arma\n";
+}
+
+void imprimirmenu()
+{
+  int opcao,j=1;
+  for (int i = 0; i != 1; i)
+  {
+    do{
+      jogador1();
+      cin >> opcao;
+      switch (opcao)
+      {
+      case 1:
+        player2->receberDano(player1->atacarArma(),0);
+        break;
+      case 2:
+        //player2->receberDano(player1->UsarMagia(),1);
+        break;
+      case 3:
+        //player2->receberDano(player1->atacarArma(),0);
+        break;
+      default:
+        j = 0;
+        break;
+      }
+    }while(j != 0);
+    
+    
+
+  }
+
+}
 void imprimirinicio()
 {
-  int i, num_perso;
+  int i, num_perso,num_perso2;
   // player 1
   for (i = 0; i < 1; i++)
   {
-    cout << "Digite o numero do personagem do jogador 1 :\n";
-    cout << "1 - Gurreiro  2 - Ladrao\n";
-    cout << "3 - Mago  4 - Paladino\n";
-    cout << "5 - Animal  6 - Troll\n";
-    cout << "7 - Dragao  8 - Zumbi\n";
+    cout << "Digite o numero do personagem do jogador 2 :\n"
+        << "1 - Gurreiro  2 - Ladrao\n"
+        << "3 - Mago  4 - Paladino\n"
+        << "5 - Animal  6 - Troll\n"
+        << "7 - Dragao  8 - Zumbi\n";
     cin >> num_perso;
 
     switch (num_perso)
@@ -55,18 +99,17 @@ void imprimirinicio()
       break;
     }
   }
-
   // player 2
   for (i = 0; i < 1; i++)
   {
-    cout << "Digite o numero do personagem do jogador 2 :\n";
-    cout << "1 - Gurreiro  2 - Ladrao\n";
-    cout << "3 - Mago  4 - Paladino\n";
-    cout << "5 - Animal  6 - Troll\n";
-    cout << "7 - Dragao  8 - Zumbi\n";
-    cin >> num_perso;
+    cout << "Digite o numero do personagem do jogador 2 :\n"
+        << "1 - Gurreiro  2 - Ladrao\n"
+        << "3 - Mago  4 - Paladino\n"
+        << "5 - Animal  6 - Troll\n"
+        << "7 - Dragao  8 - Zumbi\n";
+    cin >> num_perso2;
 
-    switch (num_perso)
+    switch (num_perso2)
     {
     case 1:
       player2 = new Personagem("data/guerreiro.txt");
@@ -99,16 +142,9 @@ void imprimirinicio()
       break;
     }
   }
+
 }
 
-void imprimirmenu()
-{
-  /* 
-  1 - troca arma
-  2 - ataca arma
-  3 - ataca magia
-  */
-}
 
 void jogo()
 {
@@ -119,7 +155,6 @@ int main()
 
   Personagem *exemplo = new Personagem("guerreiro");
 
-  cout << 'a';
 
   int n;
   do

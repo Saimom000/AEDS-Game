@@ -29,18 +29,21 @@ private:
   int resistenciaFisica;
   int resistenciaMagica;
   int agilidade;
+  int armaAtual[3];
   vector<Arma> armas;
   vector<Magia> magias;
   string abreArquivo(string nomeClasse);
   int *obtemAtributos(string nomeClasse);
   int calcularDesvio(int agilidade);
-  int verificaVida();
+  int verificaVida(); 
 
 public:
   Personagem(string nome);
   int atacarArma();
   int receberDano(int dano, int ataque);
+  int usarMagia();
   int recuperaMana();
+  int listarMagias();
 };
 
 Personagem::Personagem(string nome)
@@ -67,6 +70,9 @@ Personagem::Personagem(string nome)
     Arma *arma = new Arma(list.at(i));
     armas.push_back(*arma);
   }
+  this->armaAtual[0] = arma[0];
+  this->armaAtual[1] = arma[1];
+  this->armaAtual[2] = arma[2];
 }
 
 int Personagem::calcularDesvio(int agilidade)
@@ -81,7 +87,7 @@ int Personagem::calcularDesvio(int agilidade)
 }
 int Personagem::atacarArma()
 {
-  int danoArma = 0;
+  int danoArma = CalcularDano();
 
   int datoTolta = danoArma + (danoArma * (this->forcaFisica / 100));
 
@@ -96,18 +102,21 @@ int Personagem::receberDano(int dano, int ataque)
   }
 
   int reducaodano;
-  if (ataque == 0)
+  if (ataque == 0)// tipo de dano (por arma ou magia)
     reducaodano = this->resistenciaFisica / 100;
   else
     reducaodano = this->armadura / 100;
 
   int danoRecebido = dano - (dano * (reducaodano));
 
-  if (danoRecebido > this->vida)
+  if (danoRecebido > this->vida)  //tira a vida
     this->vida = 0;
   else
     this->vida -= danoRecebido;
 
+  if(this->vida == 0){
+    return -1;
+  }
   return danoRecebido;
 }
 int Personagem::verificaVida()
@@ -124,5 +133,13 @@ int Personagem::recuperaMana()
   {
     this->mana = this->maxmana;
   }
+  return 0;
+}
+int Personagem::usarMagia()
+{
+  int danoArma = 0;
+
+  int datoTolta = danoArma + (danoArma * (this->forcaFisica / 100));
+
   return 0;
 }
