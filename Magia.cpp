@@ -12,10 +12,9 @@ private:
   int dano;
   int cura;
   int gastoMana;
-  int *tipoperso;
 
 public:
-  Magia(string nome){
-
+  Magia(string nome)
+  {
   }
 };

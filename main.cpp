@@ -116,6 +116,11 @@ void jogo()
 
 int main()
 {
+
+  Personagem *exemplo = new Personagem("guerreiro");
+
+  cout << 'a';
+
   int n;
   do
   {

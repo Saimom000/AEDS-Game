@@ -11,28 +11,28 @@ using namespace std;
 class ArmaLendaria : public Arma
 {
 private:
-    int chanseCritico;
-    int danoCritico;
+  int chanseCritico;
+  int danoCritico;
 
 public:
-    ArmaLendaria(string nomeArma);
-    int CalcularDano() override;
+  ArmaLendaria(string nomeArma);
+  int CalcularDano() override;
 };
 
 ArmaLendaria::ArmaLendaria(string nomeArma) : Arma(nomeArma)
 {
-    srand(time(0));
-    this->chanseCritico = 30;
-    this->danoCritico = 100;
+  srand(time(0));
+  this->chanseCritico = 30;
+  this->danoCritico = 100;
 }
 int ArmaLendaria::CalcularDano()
 {
-    durabilidade -= 1;
-    int dano = danomin + (rand() % (danomax - danomin + 1));
-    int chanceDeCritico = (rand() % 100) + 1;
+  durabilidade -= 1;
+  int dano = danoMin + (rand() % (danoMax - danoMin + 1));
+  int chanceDeCritico = (rand() % 100) + 1;
 
-    if (chanceDeCritico <= this->chanseCritico)
-    {
-        dano += dano * (this->danoCritico / 100);
-    }
+  if (chanceDeCritico <= this->chanseCritico)
+  {
+    dano += dano * (this->danoCritico / 100);
+  }
 }

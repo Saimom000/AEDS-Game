@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <ctime>
+#include <vector>
 
 #include "Accessdata.cpp"
 
@@ -11,41 +12,30 @@ using namespace std;
 class Arma
 {
 protected:
-    int id;
-    string nome;
-    int danomin;
-    int danomax;
-    int durabilidade;
-    int *listaPerso;
+  string nome;
+  int danoMin;
+  int danoMax;
+  int durabilidade;
 
 public:
-    Arma(string nomeArma);
-    virtual int CalcularDano();
+  Arma(string nome);
+  virtual int CalcularDano();
 };
 
-Arma::Arma(string nomeArma)
+Arma::Arma(string nome)
 {
-    srand(time(0));
-    this->nome = nomeArma;
+  srand(time(0));
 
-    int qtdAtributos = 10;
-    Accessdata *a = new Accessdata(qtdAtributos);
-    int *atributos = a->obtemAtributos(nomeArma);
-    this->danomax = atributos[0];
-    this->danomin = atributos[1];
-    this->durabilidade = 3;
-    this->listaPerso = new int[8];
-    int j = 0;
-    for (int i = 2; i < qtdAtributos; i++)
-    {
-        listaPerso[j++] = atributos[i];
-    }
-    
-    delete a;
-    delete atributos;
+  this->nome = nome;
+
+  vector<string> list = getAttributes(nome);
+
+  this->danoMin = stoi(list.at(0));
+  this->danoMax = stoi(list.at(1));
+  this->durabilidade = stoi(list.at(2));
 }
 int Arma::CalcularDano()
 {
-    this->durabilidade -= 1;
-    return (this->danomin + (rand() % (this->danomax - this->danomin + 1)));
+  this->durabilidade -= 1;
+  return this->danoMin + (rand() % (this->danoMax - this->danoMin + 1));
 }
