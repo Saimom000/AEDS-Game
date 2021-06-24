@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 #include <string>
 
@@ -14,14 +16,7 @@ private:
   int *tipoperso;
 
 public:
-  Magia(/* args */);
-  ~Magia();
+  Magia(){
+    
+  }
 };
-
-Magia::Magia()
-{
-}
-
-Magia::~Magia()
-{
-}

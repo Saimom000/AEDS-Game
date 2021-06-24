@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 #include <stdlib.h>
 #include <fstream>
@@ -9,14 +11,9 @@ class Esquiva
 private:
   /* data */
 public:
-  Esquiva(/* args */);
-  ~Esquiva();
+  Esquiva();
 };
 
-Esquiva::Esquiva(/* args */)
-{
-}
-
-Esquiva::~Esquiva()
+Esquiva::Esquiva()
 {
 }

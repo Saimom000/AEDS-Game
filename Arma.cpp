@@ -1,7 +1,11 @@
+#pragma once
+
 #include <iostream>
 #include <string>
-#include "Accessdata.cpp"
 #include <ctime>
+
+#include "Accessdata.cpp"
+
 using namespace std;
 
 class Arma
@@ -17,7 +21,6 @@ protected:
 public:
     Arma(string nomeArma);
     virtual int CalcularDano();
-    ~Arma();
 };
 
 Arma::Arma(string nomeArma)
@@ -41,12 +44,8 @@ Arma::Arma(string nomeArma)
     delete a;
     delete atributos;
 }
-int Arma::CalcularDano(/* args */)
+int Arma::CalcularDano()
 {
-    this->durabilidade -=1;
-    return (this->danomin +(rand() % (this->danomax - this->danomin + 1)));
-    
-}
-Arma::~Arma()
-{
+    this->durabilidade -= 1;
+    return (this->danomin + (rand() % (this->danomax - this->danomin + 1)));
 }

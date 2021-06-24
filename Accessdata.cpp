@@ -1,7 +1,8 @@
+#pragma once
+
 #include <iostream>
 #include <stdlib.h>
 #include <fstream>
-
 #include <string>
 #include <stdio.h>
 
@@ -47,7 +48,6 @@ string Accessdata::abreArquivo(string nomeDaClasse)
 
 int *Accessdata::obtemAtributos(string nomeDaClasse)
 {
-
   string s = abreArquivo(nomeDaClasse);
   string delimiter = ",";
 
