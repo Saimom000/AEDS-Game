@@ -8,15 +8,14 @@ using namespace std;
 class Magia
 {
 private:
-  int id;
   string nome;
   int dano;
   int cura;
-  int gatosmana;
+  int gastoMana;
   int *tipoperso;
 
 public:
-  Magia(){
-    
+  Magia(string nome){
+
   }
 };
