@@ -53,7 +53,7 @@ void imprimirmenu()
           }else if(dano == -1){
             //o jogador inimigo morreu
           }else
-          cout <<"Voce causou "<< dano << " no " << jogadorNaoatual << "\n";
+          cout <<"Voce causou "<< dano << " de dano no " << jogadorNaoatual << "\n";
         }
         //atacar com arma
         break;

@@ -4,6 +4,7 @@
 #include <string>
 #include <ctime>
 #include <vector>
+#include <stdio.h>
 
 #include "Accessdata.cpp"
 
@@ -16,13 +17,32 @@ protected:
   int danoMin;
   int danoMax;
   int durabilidade;
-
+  string imagemArma;
 public:
   Arma(string nome);
+  void fazerArmas(string nome);
   virtual int CalcularDano();
   string mostraNomeArma();
+  string mostraImagemArma();
+  int mostraDurabiArma();
 };
-
+void Arma::fazerArmas(string nome){
+  if(nome == "espada_barroca"){
+    this->imagemArma = "-|--------";
+  }else if(nome == "porrete"){
+    this->imagemArma = "=::::::";
+  }else if(nome == "cajado"){
+    this->imagemArma ="    °\n/";
+  }else if(nome == "tridente_sagrado"){
+    this->imagemArma ="----{-";
+  }else if(nome == "besta"){  
+    this->imagemArma ="=,==}";
+  }else if(nome == "esfera_de_ataque"){
+    this->imagemArma ="@";
+  }else if (nome == "garra_latal"){
+    this->imagemArma ="={";
+  }
+}
 Arma::Arma(string nome)
 {
   srand(time(0));
@@ -34,6 +54,7 @@ Arma::Arma(string nome)
   this->danoMin = stoi(list.at(0));
   this->danoMax = stoi(list.at(1));
   this->durabilidade = stoi(list.at(2));
+  fazerArmas(nome);
   //cout <<"Danomin" <<this->danoMin;
 }
 int Arma::CalcularDano()
@@ -47,4 +68,10 @@ int Arma::CalcularDano()
 ////mostra coisa no main
 string Arma::mostraNomeArma(){
   return this->nome;
+}
+string Arma::mostraImagemArma(){
+  return this->imagemArma;
+}
+int Arma::mostraDurabiArma(){
+  return this->durabilidade;
 }

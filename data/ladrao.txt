@@ -1,1 +1,1 @@
-2,2800,50,50,30,40,50,80,cajado,porrete,esferadeataque,
+2,2800,50,50,30,40,50,80,cajado,porrete,esfera_de_ataque,besta,

@@ -152,9 +152,10 @@ int Personagem::usarMagia()
 ////////////////montrar coisa no main
 void Personagem::mostrarAtributos(){
   cout << "\nClasse do personagem: " << this->nome
-      << "  Vida atual: " << this->vida <<"/"<<this->maxvida
-       << "  Mana atual: " << this->mana <<"/"<<this->maxmana
-       << "  Arma atual: " << this->armaAtual[0].mostraNomeArma() 
+      << "  Vida: " << this->vida <<"/"<<this->maxvida
+       << "  Mana: " << this->mana <<"/"<<this->maxmana
+       << "\nArma: " << this->armaAtual[0].mostraNomeArma()
+       << "  " << this->armaAtual[0].mostraImagemArma()  
        << "\n";
 }
 
