@@ -25,17 +25,16 @@ private:
   int forcaFisica;
   int forcaMagica;
   int magiah;
-  int armadura;
   int resistenciaFisica;
   int resistenciaMagica;
   int agilidade;
-  int armaAtual[3];
+  vector<Arma> armaAtual;
   vector<Arma> armas;
   vector<Magia> magias;
   string abreArquivo(string nomeClasse);
   int *obtemAtributos(string nomeClasse);
   int calcularDesvio(int agilidade);
-  int verificaVida(); 
+  
 
 public:
   Personagem(string nome);
@@ -44,6 +43,8 @@ public:
   int usarMagia();
   int recuperaMana();
   int listarMagias();
+  int verificaVida();
+  void mostrarAtributos();
 };
 
 Personagem::Personagem(string nome)
@@ -57,6 +58,8 @@ Personagem::Personagem(string nome)
   this->id = stoi(list[0]);
   this->vida = stoi(list.at(1));
   this->mana = stoi(list.at(2));
+  this->maxvida = stoi(list.at(1));
+  this->maxmana = stoi(list.at(2));
   this->forcaFisica = stoi(list.at(3));
   this->forcaMagica = stoi(list.at(4));
   this->resistenciaFisica = stoi(list.at(5));
@@ -70,9 +73,10 @@ Personagem::Personagem(string nome)
     Arma *arma = new Arma(list.at(i));
     armas.push_back(*arma);
   }
-  this->armaAtual[0] = arma[0];
-  this->armaAtual[1] = arma[1];
-  this->armaAtual[2] = arma[2];
+  this->armaAtual.push_back(armas[0]);
+  // this->armaAtual->danoMin = armas[0].danoMin;
+  // this->armaAtual->danoMax = armas[0].danoMax;
+  // this->armaAtual->durabilidade = armas[0].durabilidade;
 }
 
 int Personagem::calcularDesvio(int agilidade)
@@ -87,11 +91,12 @@ int Personagem::calcularDesvio(int agilidade)
 }
 int Personagem::atacarArma()
 {
-  int danoArma = CalcularDano();
-
+  int danoArma = this->armaAtual[0].CalcularDano();
+  //int danoArma = 500;
+  //cout << danoArma;
   int datoTolta = danoArma + (danoArma * (this->forcaFisica / 100));
-
-  return 0;
+  //cout << "AtacarArma"<< datoTolta << "\n";
+  return datoTolta;
 }
 int Personagem::receberDano(int dano, int ataque)
 {
@@ -101,14 +106,15 @@ int Personagem::receberDano(int dano, int ataque)
     return 0;
   }
 
-  int reducaodano;
+  float reducaodano;
+  //cout << "Resistencia fisica"<< this->resistenciaFisica <<"\n";
   if (ataque == 0)// tipo de dano (por arma ou magia)
-    reducaodano = this->resistenciaFisica / 100;
+    reducaodano = this->resistenciaFisica;
   else
-    reducaodano = this->armadura / 100;
-
-  int danoRecebido = dano - (dano * (reducaodano));
-
+    reducaodano = this->resistenciaMagica;
+  //cout << "Reducao dano "<<reducaodano<<"\n";
+  int danoRecebido = dano - ((dano * reducaodano)/100);
+  //cout << "Dano recebido "<<danoRecebido<<"\n";
   if (danoRecebido > this->vida)  //tira a vida
     this->vida = 0;
   else
@@ -143,3 +149,12 @@ int Personagem::usarMagia()
 
   return 0;
 }
+////////////////montrar coisa no main
+void Personagem::mostrarAtributos(){
+  cout << "\nClasse do personagem: " << this->nome
+      << "  Vida atual: " << this->vida <<"/"<<this->maxvida
+       << "  Mana atual: " << this->mana <<"/"<<this->maxmana
+       << "  Arma atual: " << this->armaAtual[0].mostraNomeArma() 
+       << "\n";
+}
+

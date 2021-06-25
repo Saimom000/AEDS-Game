@@ -20,6 +20,7 @@ protected:
 public:
   Arma(string nome);
   virtual int CalcularDano();
+  string mostraNomeArma();
 };
 
 Arma::Arma(string nome)
@@ -33,9 +34,17 @@ Arma::Arma(string nome)
   this->danoMin = stoi(list.at(0));
   this->danoMax = stoi(list.at(1));
   this->durabilidade = stoi(list.at(2));
+  //cout <<"Danomin" <<this->danoMin;
 }
 int Arma::CalcularDano()
 {
   this->durabilidade -= 1;
-  return this->danoMin + (rand() % (this->danoMax - this->danoMin + 1));
+  int numeromax = this->danoMax - this->danoMin + 1;
+  int calculo = this->danoMin + (rand() % numeromax);
+  //cout <<"CalculoDano"<< calculo <<"\n";
+  return calculo;
+}
+////mostra coisa no main
+string Arma::mostraNomeArma(){
+  return this->nome;
 }
