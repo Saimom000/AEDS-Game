@@ -1,1 +1,1 @@
-3,2500,100,40,100,30,80,40,cajado,tridente_sagrado,
+3,2500,100,40,100,30,80,40,2,cajado,tridente_sagrado,pocao_da_vida,bio,cura,flama_gelada,intoxicacao,tempestade,

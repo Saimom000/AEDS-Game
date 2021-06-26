@@ -18,9 +18,9 @@ protected:
   int danoMax;
   int durabilidade;
   string imagemArma;
+  void fazerArmas(string nome);
 public:
   Arma(string nome);
-  void fazerArmas(string nome);
   virtual int CalcularDano();
   string mostraNomeArma();
   string mostraImagemArma();
@@ -44,9 +44,11 @@ void Arma::fazerArmas(string nome){
   }else if(nome == "esfera_de_ataque"){
     this->imagemArma ="\n\n            (@)\n";
   }else if (nome == "garra_letal"){
-    this->imagemArma ="\n\n     {=\n";
+    this->imagemArma ="\n\n              {=\n";
   }else if(nome == "Voto_Solene_de_Bul_Kathos"){
       this->imagemArma ="\n\n   <===/'''''''''''''''/\n       `''''''''''''''`";
+  }else{
+      this->imagemArma ="";
   }
 }
 Arma::Arma(string nome)

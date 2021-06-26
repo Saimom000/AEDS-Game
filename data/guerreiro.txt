@@ -1,1 +1,1 @@
-1,4000,30,100,20,80,20,20,porrete,espada_barroca,
+1,4000,30,100,20,80,20,20,2,porrete,espada_barroca,tempestade,

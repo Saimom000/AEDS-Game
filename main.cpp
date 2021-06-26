@@ -3,7 +3,7 @@
 #include <fstream>
 #include <string>
 #include <stdio.h>
-
+#include <locale.h>
 #include "Personagem.cpp"
 
 using namespace std;
@@ -13,26 +13,28 @@ Personagem *player1, *player2;
 void jogadormenu(string atacante){
   cout << "\nEscolha uma das opcoes " << atacante << " :\n";
   cout <<"1 - Atacar com arma\n"
-          <<"2 - Atacar com magia\n"
+          <<"2 - Usar magia\n"
           <<"3 - Trocar arma\n";
 }
 
 void imprimirmenu()
 {
-  int opcao,j=1,lendaria=0,dano;
-  for (int i = 1; i != 8 ; i++)
+  setlocale(LC_ALL,"portuguese");
+  int opcao,lendaria=0,dano,magia,k,v;
+  for (int i = 1; i != 0 ; i++)
   {
-    do{
+    
       int jogador = i % 2 != 0 ? 1: 2;
       int vitima = i % 2 != 0 ? 2: 1;
       string jogadoratual = i % 2 != 0 ? "Jogador 1": "Jogador 2";
       string jogadorNaoatual = i % 2 != 0 ? "Jogador 2": "Jogador 1";
       if(jogador == 1){
-        lendaria = player1->mostrarAtributos();
+        lendaria = player1->mostrarAtributos(jogadoratual);
       }else{
-        lendaria = player2->mostrarAtributos();
+        lendaria = player2->mostrarAtributos(jogadoratual);
       }
-
+      do{
+      v=1;
       jogadormenu(jogadoratual);
       cin >> opcao;
       cout << "\n";
@@ -43,24 +45,81 @@ void imprimirmenu()
            dano = player2->receberDano(player1->atacarArma(lendaria),0);  
           if(dano == 0){
             cout<< "Voce errou o ataque\n";
-          }else if(dano == -1){
-            //o jogador inimigo morreu
-          }else
-          cout <<"Voce causou "<< dano << " no " << jogadorNaoatual << "\n";
+          }else if(dano == -1){//o jogador inimigo morreu
+            cout << "O " <<jogadorNaoatual<< " morreu, voce venceu o jogo\n";
+            i=-1;
+          }else{
+            cout <<"Voce causou "<< dano << " no " << jogadorNaoatual << "\n";
+          }
           player1->semDurabilidade();
         }else{
            dano = player1->receberDano(player2->atacarArma(lendaria),0);
           if(dano == 0){
             cout<< "Voce errou o ataque\n";
           }else if(dano == -1){
-            //o jogador inimigo morreu
-          }else
-          cout <<"Voce causou "<< dano << " de dano no " << jogadorNaoatual << "\n";
-          player1->semDurabilidade();
+            cout << "O " <<jogadorNaoatual<< " morreu, voce venceu o jogo\n";
+            i=-1;
+          }else{
+            cout <<"Voce causou "<< dano << " de dano no " << jogadorNaoatual << "\n";
+          }
+          player2->semDurabilidade();
         }
         //atacar com arma
         break;
       case 2:
+       
+
+        if(jogador == 1){
+          player1->listarMagias();
+        }else{
+          player2->listarMagias();
+        }
+        do{
+        k = 1;
+        cin >> magia;
+          if(magia != 0){
+            
+            if(jogador == 1){
+              dano = player2->receberDano(player1->usarMagia(magia),1);  
+              if(dano == 0){
+                cout<< "Voce errou o ataque\n";
+              }else if(dano == -1){
+                cout << "O " <<jogadorNaoatual<< " morreu, voce venceu o jogo\n";
+                i=-1;
+                //o jogador inimigo morreu
+              }else if(dano == -2){//cura
+                cout << "\nVoce foi curado\n";
+              }else if(dano == -3){//sem mana
+                cout << "Voce esta sem mana, escolha uma opcao novamente:\n";
+                k=0;
+              }else if(dano == -4){//numero invalido
+                k=0;
+              }else{
+                cout <<"\nVoce causou "<< dano << " no " << jogadorNaoatual << "\n";
+              }
+            }else{
+              dano = player1->receberDano(player2->usarMagia(magia),1);  
+              if(dano == 0){//nao da pra desviar de magia, mas se precisar colocar esta aqui
+                cout<< "Voce errou o ataque\n";
+              }else if(dano == -1){//jogador inimigo morreu
+                cout << "O " <<jogadorNaoatual<< " morreu, voce venceu o jogo\n";
+                i=-1;
+                //o jogador inimigo morreu
+              }else if(dano == -2){//cura
+                cout << "\nVoce foi curado\n";
+              }else if(dano == -3){//sem mana
+                cout << "Voce esta sem mana, escolha uma opcao novamente:\n";
+                k=0;
+              }else if(dano == -4){//numero invalido
+                k=0;
+              }else{
+                cout <<"\nVoce causou "<< dano << " no " << jogadorNaoatual << "\n";
+              }
+            }
+          }else{
+            v=0;
+          }
+        }while(k == 0);
         //player2->receberDano(player1->UsarMagia(),1);
         //atacar ou curar com magia
         break;
@@ -74,11 +133,11 @@ void imprimirmenu()
         //trocar arma
         break;
       default:
-        j = 0;
+        cout << "Valor digitado invalido\n";
+        v = 0;
         break;
       }
-      j = 0;
-    }while(j != 0);
+      }while(v == 0);
     
     
   //i=-1;
