@@ -25,22 +25,28 @@ public:
   string mostraNomeArma();
   string mostraImagemArma();
   int mostraDurabiArma();
+  int mostraDanoMinArma();
+  int mostraDanoMaxArma();
+  void semDurabilidade();
+  ~Arma();
 };
 void Arma::fazerArmas(string nome){
   if(nome == "espada_barroca"){
-    this->imagemArma = "-|--------";
+    this->imagemArma = "\n\n         <==[-------\n";
   }else if(nome == "porrete"){
-    this->imagemArma = "=::::::";
+    this->imagemArma = "\n\n         =|:::::::\n";
   }else if(nome == "cajado"){
-    this->imagemArma ="    °\n/";
+    this->imagemArma ="\n\n            0 \n           /\n";
   }else if(nome == "tridente_sagrado"){
-    this->imagemArma ="----{-";
+    this->imagemArma ="\n\n         +----{-\n";
   }else if(nome == "besta"){  
-    this->imagemArma ="=,==}";
+    this->imagemArma ="\n\n         =,===}->\n";
   }else if(nome == "esfera_de_ataque"){
-    this->imagemArma ="@";
-  }else if (nome == "garra_latal"){
-    this->imagemArma ="={";
+    this->imagemArma ="\n\n            (@)\n";
+  }else if (nome == "garra_letal"){
+    this->imagemArma ="\n\n     {=\n";
+  }else if(nome == "Voto_Solene_de_Bul_Kathos"){
+      this->imagemArma ="\n\n   <===/'''''''''''''''/\n       `''''''''''''''`";
   }
 }
 Arma::Arma(string nome)
@@ -60,11 +66,14 @@ Arma::Arma(string nome)
 int Arma::CalcularDano()
 {
   this->durabilidade -= 1;
+  
   int numeromax = this->danoMax - this->danoMin + 1;
   int calculo = this->danoMin + (rand() % numeromax);
   //cout <<"CalculoDano"<< calculo <<"\n";
   return calculo;
 }
+
+
 ////mostra coisa no main
 string Arma::mostraNomeArma(){
   return this->nome;
@@ -72,6 +81,16 @@ string Arma::mostraNomeArma(){
 string Arma::mostraImagemArma(){
   return this->imagemArma;
 }
+int Arma::mostraDanoMaxArma(){
+  return this->danoMax;
+}
+int Arma::mostraDanoMinArma(){
+  return this->danoMin;
+}
 int Arma::mostraDurabiArma(){
   return this->durabilidade;
+}
+
+Arma::~Arma(){
+
 }

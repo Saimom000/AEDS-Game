@@ -19,8 +19,8 @@ void jogadormenu(string atacante){
 
 void imprimirmenu()
 {
-  int opcao,j=1;
-  for (int i = 1; i != 4 ; i++)
+  int opcao,j=1,lendaria=0,dano;
+  for (int i = 1; i != 8 ; i++)
   {
     do{
       int jogador = i % 2 != 0 ? 1: 2;
@@ -28,32 +28,35 @@ void imprimirmenu()
       string jogadoratual = i % 2 != 0 ? "Jogador 1": "Jogador 2";
       string jogadorNaoatual = i % 2 != 0 ? "Jogador 2": "Jogador 1";
       if(jogador == 1){
-        player1->mostrarAtributos();
+        lendaria = player1->mostrarAtributos();
       }else{
-        player2->mostrarAtributos();
+        lendaria = player2->mostrarAtributos();
       }
 
       jogadormenu(jogadoratual);
       cin >> opcao;
+      cout << "\n";
       switch (opcao)
       {
       case 1:
         if(jogador == 1){
-          int dano = player2->receberDano(player1->atacarArma(),0);
+           dano = player2->receberDano(player1->atacarArma(lendaria),0);  
           if(dano == 0){
             cout<< "Voce errou o ataque\n";
           }else if(dano == -1){
             //o jogador inimigo morreu
           }else
           cout <<"Voce causou "<< dano << " no " << jogadorNaoatual << "\n";
+          player1->semDurabilidade();
         }else{
-          int dano = player1->receberDano(player2->atacarArma(),0);
+           dano = player1->receberDano(player2->atacarArma(lendaria),0);
           if(dano == 0){
             cout<< "Voce errou o ataque\n";
           }else if(dano == -1){
             //o jogador inimigo morreu
           }else
           cout <<"Voce causou "<< dano << " de dano no " << jogadorNaoatual << "\n";
+          player1->semDurabilidade();
         }
         //atacar com arma
         break;
@@ -63,6 +66,11 @@ void imprimirmenu()
         break;
       case 3:
         //player2->receberDano(player1->atacarArma(),0);
+        if(jogador == 1){
+          player1->trocarArma();
+        }else{
+          player2->trocarArma();
+        }
         //trocar arma
         break;
       default:
@@ -122,7 +130,6 @@ void imprimirinicio()
       break;
     }
   }
-  //cout << player1->verificaVida();
   // player 2
   for (i = 0; i < 1; i++)
   {
@@ -179,7 +186,6 @@ int main()
 {
 
   // Personagem *exemplo = new Personagem("guerreiro");
-  // cout << exemplo->verificaVida();
 
   int n=0;
   do
