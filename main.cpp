@@ -39,7 +39,7 @@ void imprimirmenu()
 {
   setlocale(LC_ALL,"portuguese");
   int opcao,lendaria=0,dano,magia,k,v,tipo;
-  for (int i = 1; i != 4 ; i++)//turnos
+  for (int i = 1; i != 0 ; i++)//turnos
   {
     
       int jogador = i % 2 != 0 ? 1: 2;

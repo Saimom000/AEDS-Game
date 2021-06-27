@@ -304,11 +304,11 @@ void Personagem::mostrarTodosAtributos(){
   cout << "\nPersonagem: " << this->nome
       << " \nVida: " << this->vida <<"/"<<this->maxvida
        << "  Mana: " << this->mana <<"/"<<this->maxmana
-       << "  Forca Fisica: " << this->forcaFisica
-       << "  Forca Magica: " << this->forcaMagica
-       << "\nArmadura: " << this->resistenciaFisica
-       << "  Resistencia Magica: " << this->resistenciaMagica
-       << "  Agilidade: " << this->agilidade
+       << "  Forca Fisica: " << this->forcaFisica <<"%"
+       << "  Forca Magica: " << this->forcaMagica <<"%"
+       << "\nArmadura: " << this->resistenciaFisica<<"%"
+       << "  Resistencia Magica: " << this->resistenciaMagica<<"%"
+       << "  Agilidade: " << this->agilidade<<"%"
        << "\n";
 }
 // int forcaFisica;

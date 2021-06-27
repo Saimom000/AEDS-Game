@@ -1,1 +1,1 @@
-8,3000,20,40,20,40,80,50,3,cajado,garra_letal,porrete,intoxicacao,
+8,3000,25,40,30,40,80,50,3,cajado,garra_letal,porrete,intoxicacao,
