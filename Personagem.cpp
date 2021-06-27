@@ -39,7 +39,7 @@ private:
   void voltarArmaInicial();//arma
   void regeneraMana();//magia
   int chanseBulKathos();//arma lendaria
-  int imprimirbencaoBulKathos();//arma lendaria
+  int imprimiArmas();//arma lendaria
   
 
 public:
@@ -54,6 +54,7 @@ public:
   void descansar();//cura 100 de vida
   string tipoJogador();
   int verificaArmaTroca();
+  void mostrarTodosAtributos();
 };
 
 Personagem::Personagem(string nome)
@@ -176,7 +177,7 @@ int Personagem::chanseBulKathos(){
   }
   return 0;
 }
-int Personagem::imprimirbencaoBulKathos(){
+int Personagem::imprimiArmas(){
   int a = chanseBulKathos();
   if(a == 0){//mostra as caracteristicas da arma comum
     cout << "\nArma: " << this->armaAtual[0].mostraNomeArma()
@@ -294,9 +295,25 @@ int Personagem::mostrarAtributos(string jogadoratual){
   cout << "\nPersonagem: " << this->nome
       << " \nVida: " << this->vida <<"/"<<this->maxvida
        << "  Mana: " << this->mana <<"/"<<this->maxmana;
-       return imprimirbencaoBulKathos();
+       return imprimiArmas();
 }
 string Personagem::tipoJogador(){
   return this->nome;
 }
-
+void Personagem::mostrarTodosAtributos(){
+  cout << "\nPersonagem: " << this->nome
+      << " \nVida: " << this->vida <<"/"<<this->maxvida
+       << "  Mana: " << this->mana <<"/"<<this->maxmana
+       << "  Forca Fisica: " << this->forcaFisica
+       << "  Forca Magica: " << this->forcaMagica
+       << "\nArmadura: " << this->resistenciaFisica
+       << "  Resistencia Magica: " << this->resistenciaMagica
+       << "  Agilidade: " << this->agilidade
+       << "\n";
+}
+// int forcaFisica;
+//   int forcaMagica;
+//   int resistenciaFisica;
+//   int resistenciaMagica;
+//   int agilidade;
+//   int quantidadeArmas;

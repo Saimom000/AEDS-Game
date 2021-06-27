@@ -21,14 +21,16 @@ void jogadormenu(string atacante,int tipo){
   cout << "\nEscolha uma das opcoes " << atacante << " :\n";// menu do mago e paladino
   cout <<"1 - Atacar com arma\n"
           <<"2 - Usar magia\n"
-          <<"3 - Trocar arma\n";
+          <<"3 - Trocar arma\n"
+          <<"4 - Ver TODOS os atributos dos 2 jogadores\n";
           
   }else{
     cout << "\nEscolha uma das opcoes " << atacante << " :\n";// menu do resto
   cout <<"1 - Atacar com arma\n"
           <<"2 - Usar magia\n"
           <<"3 - Trocar arma\n"
-          <<"4 - Descansar (+100 vida)\n";
+          <<"4 - Ver TODOS os atributos dos 2 jogadores\n"
+          <<"5 - Descansar (+100 vida)\n";
   }
 
 }
@@ -37,7 +39,7 @@ void imprimirmenu()
 {
   setlocale(LC_ALL,"portuguese");
   int opcao,lendaria=0,dano,magia,k,v,tipo;
-  for (int i = 1; i != 0 ; i++)//turnos
+  for (int i = 1; i != 4 ; i++)//turnos
   {
     
       int jogador = i % 2 != 0 ? 1: 2;
@@ -166,8 +168,23 @@ void imprimirmenu()
           }
         }
         break;
-      case 4://descansar
-      if(tipo != 1){
+      case 4://ver todos atributos
+      if(jogador == 1){
+          cout << "Seus Atributos:\n";
+          player1->mostrarTodosAtributos();
+          cout << "\nAtributos do jogador 2:\n";
+          player2->mostrarTodosAtributos();
+        }else{
+          cout << "Seus Atributos:\n";
+          player2->mostrarTodosAtributos();
+          cout << "\nAtributos do jogador 1:\n";
+          player1->mostrarTodosAtributos();
+        }
+        v=0;
+      break;
+      case 5://descansar
+        
+        if(tipo != 1){
         if(jogador == 1){
           
         player1->descansar();
@@ -179,6 +196,7 @@ void imprimirmenu()
         cout << "Valor digitado invalido\n";
          v = 0;
       }
+        
       break;
       default:
         cout << "Valor digitado invalido\n";

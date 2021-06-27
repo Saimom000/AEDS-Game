@@ -1,1 +1,1 @@
-4,3200,80,60,50,60,60,60,2,tridente_sagrado,besta,pocao_da_vida,flama_gelada,tempestade,
+4,3200,80,60,50,50,60,60,2,tridente_sagrado,besta,pocao_da_vida,flama_gelada,tempestade,
