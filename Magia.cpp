@@ -32,13 +32,13 @@ void Magia::fazerMagia(string nome){
   }else if(nome == "bio"){
     this->imagemMagia ="\n\n\t   - {             \n\t   |            \n\t  [ ]\n";
   }else if(nome == "cura"){
-    this->imagemMagia ="\n\n\t++++++\n\t+  }{  +\n\t+++++\n";
+    this->imagemMagia ="\n\n\t++++++\n\t+ }{ +\n\t++++++\n";
   }else if(nome == "flama_gelada"){  
     this->imagemMagia ="\n\n\t  [:::::>>>>\n\t  [:::::>>>>\n";
   }else if(nome == "intoxicacao"){
     this->imagemMagia ="\n\n           ===\n         ( x x )\n         ( x x )\n";;
   }else if (nome == "tempestade"){
-    this->imagemMagia ="\n\n              (  ;      ::     )\n        (     ;     :::      )\n      /         \\              / \n";
+    this->imagemMagia ="\n\n\t  (  ::       ;    )\n\t(     ;     :::      )\n         /        \\        / \n         \\        /\\      / \n";
   }else{
       this->imagemMagia ="";
   }
