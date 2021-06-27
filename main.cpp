@@ -85,7 +85,9 @@ void imprimirmenu()
           }
           else if (dano == -1)
           { //o jogador inimigo morreu
-            cout << "O " << jogadorNaoatual << " morreu, voce venceu o jogo\n";
+            cout << "\nO " << jogadorNaoatual << " morreu, voce venceu o jogo\n"
+                 << "\n O " << jogadoratual << " VENCEU\n"
+                 << "OBRIGADO POR JOGAR :)\n";
             i = -1;
           }
           else
@@ -103,7 +105,9 @@ void imprimirmenu()
           }
           else if (dano == -1)
           {
-            cout << "O " << jogadorNaoatual << " morreu, voce venceu o jogo\n";
+            cout << "\nO " << jogadorNaoatual << " morreu, voce venceu o jogo\n"
+                     << "\n O " << jogadoratual << " VENCEU\n"
+                     << "OBRIGADO POR JOGAR :)\n";
             i = -1;
           }
           else
@@ -140,7 +144,9 @@ void imprimirmenu()
               }
               else if (dano == -1)
               {
-                cout << "O " << jogadorNaoatual << " morreu, voce venceu o jogo\n";
+                cout << "\nO " << jogadorNaoatual << " morreu, voce venceu o jogo\n"
+                     << "\n O " << jogadoratual << " VENCEU\n"
+                     << "OBRIGADO POR JOGAR :)\n";
                 i = -1;
                 //o jogador inimigo morreu
               }
@@ -171,7 +177,9 @@ void imprimirmenu()
               }
               else if (dano == -1)
               { //jogador inimigo morreu
-                cout << "O " << jogadorNaoatual << " morreu, voce venceu o jogo\n";
+                cout << "\nO " << jogadorNaoatual << " morreu, voce venceu o jogo\n"
+                     << "\n O " << jogadoratual << " VENCEU\n"
+                     << "OBRIGADO POR JOGAR :)\n";
                 i = -1;
                 //o jogador inimigo morreu
               }
