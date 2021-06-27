@@ -9,41 +9,66 @@
 using namespace std;
 
 Personagem *player1, *player2;
-
-void jogadormenu(string atacante){
-  cout << "\nEscolha uma das opcoes " << atacante << " :\n";
+int semDescansar(string nome){// o jogador do tipo paladino ou mago n podem descansar
+  if(nome =="mago"|| nome =="paladino"){
+    return 1;
+  }
+    return 0;
+  
+}
+void jogadormenu(string atacante,int tipo){
+  if(tipo == 1){
+  cout << "\nEscolha uma das opcoes " << atacante << " :\n";// menu do mago e paladino
   cout <<"1 - Atacar com arma\n"
           <<"2 - Usar magia\n"
           <<"3 - Trocar arma\n";
+          
+  }else{
+    cout << "\nEscolha uma das opcoes " << atacante << " :\n";// menu do resto
+  cout <<"1 - Atacar com arma\n"
+          <<"2 - Usar magia\n"
+          <<"3 - Trocar arma\n"
+          <<"4 - Descansar (+100 vida)\n";
+  }
+
 }
 
 void imprimirmenu()
 {
   setlocale(LC_ALL,"portuguese");
-  int opcao,lendaria=0,dano,magia,k,v;
-  for (int i = 1; i != 0 ; i++)
+  int opcao,lendaria=0,dano,magia,k,v,tipo;
+  for (int i = 1; i != 0 ; i++)//turnos
   {
     
       int jogador = i % 2 != 0 ? 1: 2;
       int vitima = i % 2 != 0 ? 2: 1;
       string jogadoratual = i % 2 != 0 ? "Jogador 1": "Jogador 2";
       string jogadorNaoatual = i % 2 != 0 ? "Jogador 2": "Jogador 1";
-      if(jogador == 1){
+      if(jogador == 1){//mostra os atributos do jogador 1 ou 2 , arma equipada, vida, mana ...
         lendaria = player1->mostrarAtributos(jogadoratual);
       }else{
         lendaria = player2->mostrarAtributos(jogadoratual);
       }
-      do{
+      do{//resetar caso o valor digitado seja invalido ou queira voltar para o menu
       v=1;
-      jogadormenu(jogadoratual);
+      
+      if(jogador == 1){// o jogador do tipo paladino ou mago nao podem descansar
+        tipo = semDescansar(player1->tipoJogador());
+        jogadormenu(jogadoratual,tipo);
+
+      }else if(jogador == 2){
+        tipo = semDescansar(player2->tipoJogador());
+        jogadormenu(jogadoratual,tipo);
+        
+      }
       cin >> opcao;
       cout << "\n";
       switch (opcao)
       {
-      case 1:
+      case 1://atacar com arma
         if(jogador == 1){
            dano = player2->receberDano(player1->atacarArma(lendaria),0);  
-          if(dano == 0){
+          if(dano == 0){//errou o ataque
             cout<< "Voce errou o ataque\n";
           }else if(dano == -1){//o jogador inimigo morreu
             cout << "O " <<jogadorNaoatual<< " morreu, voce venceu o jogo\n";
@@ -51,7 +76,7 @@ void imprimirmenu()
           }else{
             cout <<"Voce causou "<< dano << " no " << jogadorNaoatual << "\n";
           }
-          player1->semDurabilidade();
+          player1->semDurabilidade();//verifica se a durabilidade de arma atual acabou, se for a arma base nao mostra mensagem
         }else{
            dano = player1->receberDano(player2->atacarArma(lendaria),0);
           if(dano == 0){
@@ -64,9 +89,9 @@ void imprimirmenu()
           }
           player2->semDurabilidade();
         }
-        //atacar com arma
+        
         break;
-      case 2:
+      case 2://atacar ou curar com magia
        
 
         if(jogador == 1){
@@ -74,10 +99,10 @@ void imprimirmenu()
         }else{
           player2->listarMagias();
         }
-        do{
+        do{//repete se o numero digitado for invalido ou ficar sem mana
         k = 1;
         cin >> magia;
-          if(magia != 0){
+          if(magia != 0){//se for magia for 0 ele vai voltar para o menu anterior
             
             if(jogador == 1){
               dano = player2->receberDano(player1->usarMagia(magia),1);  
@@ -121,17 +146,40 @@ void imprimirmenu()
           }
         }while(k == 0);
         //player2->receberDano(player1->UsarMagia(),1);
-        //atacar ou curar com magia
+
         break;
-      case 3:
+      case 3://trocar arma
         //player2->receberDano(player1->atacarArma(),0);
         if(jogador == 1){
-          player1->trocarArma();
+          if(player1->verificaArmaTroca() == 1){
+            player1->trocarArma();
+          }else{
+            cout << "Sem arma para trocar, escolha outro numero\n";
+            v=0;
+          }
         }else{
-          player2->trocarArma();
+          if(player2->verificaArmaTroca() == 1){
+            player2->trocarArma();
+          }else{
+            cout << "Sem arma para trocar, escolha outro numero\n";
+            v=0;
+          }
         }
-        //trocar arma
         break;
+      case 4://descansar
+      if(tipo != 1){
+        if(jogador == 1){
+          
+        player1->descansar();
+          
+        }else{
+          player2->descansar();
+        }
+      }else{
+        cout << "Valor digitado invalido\n";
+         v = 0;
+      }
+      break;
       default:
         cout << "Valor digitado invalido\n";
         v = 0;
@@ -140,7 +188,6 @@ void imprimirmenu()
       }while(v == 0);
     
     
-  //i=-1;
   }
 
 }
@@ -152,7 +199,7 @@ void imprimirinicio()
   {
     cout << "Digite o numero do personagem do jogador 1 :\n"
         << "1 - Gurreiro  2 - Ladrao\n"
-        << "3 - Mago  4 - Paladino\n"
+        << "3 - Mago    4 - Paladino\n"
         << "5 - Animal  6 - Troll\n"
         << "7 - Dragao  8 - Zumbi\n";
     cin >> num_perso;
@@ -194,7 +241,7 @@ void imprimirinicio()
   {
     cout << "Digite o numero do personagem do jogador 2 :\n"
         << "1 - Gurreiro  2 - Ladrao\n"
-        << "3 - Mago  4 - Paladino\n"
+        << "3 - Mago    4 - Paladino\n"
         << "5 - Animal  6 - Troll\n"
         << "7 - Dragao  8 - Zumbi\n";
     cin >> num_perso2;

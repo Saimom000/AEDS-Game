@@ -51,8 +51,9 @@ public:
   int atacarArma(int lenda);//arma
   void semDurabilidade();//arma
   void trocarArma();//arma
-  
-
+  void descansar();//cura 100 de vida
+  string tipoJogador();
+  int verificaArmaTroca();
 };
 
 Personagem::Personagem(string nome)
@@ -114,7 +115,7 @@ void Personagem::voltarArmaInicial(){
   this->armaAtual.push_back(armas[0]);
   
 }
-void Personagem::semDurabilidade(){
+void Personagem::semDurabilidade(){//verifica se a durabilidade de arma atual acabou, se for a arma base nao mostra mensagem
   if(this->armaAtual[0].mostraDurabiArma() == 0){
     
     if(this->armaAtual[0].mostraNomeArma() != this->armas[0].mostraNomeArma()){
@@ -125,6 +126,7 @@ void Personagem::semDurabilidade(){
 }
 int Personagem::calcularDesvio(int agilidade)
 {
+  //cout << "Agilidade"<<agilidade;
   int a = (rand() % 100) + 1;
   if (a <= agilidade)
   {
@@ -149,26 +151,34 @@ int Personagem::atacarArma(int lenda)
   //cout << "AtacarArma"<< datoTolta << "\n";
   return datoTolta;
 }
+int Personagem::verificaArmaTroca(){
+  if(this->armas.size()-1 == 0){
+    return 0;
+  }
+   return 1;
+}
 void Personagem::trocarArma(){
-  
-  int a = (rand() % (armas.size()-1)) + 1;
-  //cout <<"Aleatorio" << a <<" Tamanho" <<armas.size() ;
-  this->armaAtual.clear();
-  this->armaAtual.push_back(armas[a]);
-  cout << "Nova arma: " << this->armaAtual[0].mostraNomeArma() <<"\n";
-  regeneraMana();
+  if(verificaArmaTroca() == 1){
+    int a = (rand() % (armas.size()-1)) + 1;//nao dropa para a arma inicial
+    //cout <<"Aleatorio" << a <<" Tamanho" <<armas.size() ;
+    this->armaAtual.clear();
+    this->armaAtual.push_back(armas[a]);
+    cout << "Nova arma: " << this->armaAtual[0].mostraNomeArma() <<"\n";
+    regeneraMana();
+    
+  }
 }
 int Personagem::chanseBulKathos(){
   int a = (rand() % 100) + 1;
   int chanse = this->lendaria[0].DropLendaria();
   if(a <= chanse){
-    return 1;
+    return 1;//vai dropar a arma lendaria
   }
   return 0;
 }
 int Personagem::imprimirbencaoBulKathos(){
   int a = chanseBulKathos();
-  if(a == 0){
+  if(a == 0){//mostra as caracteristicas da arma comum
     cout << "\nArma: " << this->armaAtual[0].mostraNomeArma()
        << "  Durabilidade: " << this->armaAtual[0].mostraDurabiArma()
        <<"\nDano bruto: "<< this->armaAtual[0].mostraDanoMinArma()<<" - " <<this->armaAtual[0].mostraDanoMaxArma()
@@ -176,7 +186,7 @@ int Personagem::imprimirbencaoBulKathos(){
          << "\n";
   }else{
     cout << "\nArma: " << this->lendaria[0].mostraNomeArma()
-       << "  Durabilidade: " << this->lendaria[0].mostraDurabiArma()
+       << "  Durabilidade: ate o fim do turno" 
        <<"\nDano bruto: "<< this->lendaria[0].mostraDanoMinArma()<<" - " <<this->lendaria[0].mostraDanoMaxArma()
        << "  " << this->lendaria[0].mostraImagemArma()
          <<"\n\nVoce adquiriu a BENCAO DE BUL-KATHOS\n";
@@ -191,7 +201,7 @@ void Personagem::listarMagias(){
   for (int i = 0; i < this->magias.size(); i++)
   {
     cout << i+1 <<" - " << this->magias[i].mostrarNomeMagia() << "\nCusto: " << this->magias[i].mostrarGastoManaMagia();
-    if(this->magias[i].mostrarDanoMagia() != 0){
+    if(this->magias[i].mostrarDanoMagia() != 0){// se dano for igual a 0 é magia de cura
       cout << " Dano: "<< this->magias[i].mostrarDanoMagia();
     }else{
       cout << " Cura: "<< this->magias[i].mostrarCuraMagia();
@@ -202,26 +212,26 @@ void Personagem::listarMagias(){
 }
 int Personagem::usarMagia(int nummagia)
 {
-  nummagia-= 1;
+  nummagia-= 1;// o usuario digitou magia 1, 2 ou 3, ai o nummagia-= 1; volta da ordem certa no vetor
   int danoMagia = 0;
-  if(nummagia >= 0 && nummagia < this->magias.size()){
+  if(nummagia >= 0 && nummagia < this->magias.size()){//verifica se o numero digitado foi valido
     danoMagia = this->magias[nummagia].mostrarDanoMagia();
-    if(this->mana - this->magias[nummagia].mostrarGastoManaMagia() < 0){
+    if(this->mana - this->magias[nummagia].mostrarGastoManaMagia() < 0){// verifica se tem mana suficiente para usar a magia
       return -2;
-    }else if(this->magias[nummagia].mostrarDanoMagia() != 0){
-      danoMagia = danoMagia + (danoMagia * (this->forcaMagica / 100));
+    }else if(this->magias[nummagia].mostrarDanoMagia() != 0){// se dano for igual a 0 é magia de cura
+      danoMagia = danoMagia + (danoMagia * (this->forcaMagica )/ 100);
     }else{
-      if(this->magias[nummagia].mostrarCuraMagia() + this->vida > this->maxvida){
+      if(this->magias[nummagia].mostrarCuraMagia() + this->vida > this->maxvida){// a cura nao passa do limite de vida
         this-> vida = this->maxvida;
       }else{
-        this->vida += this->magias[nummagia].mostrarCuraMagia();
+        this->vida += this->magias[nummagia].mostrarCuraMagia();//cura
       }
-      this->mana -= this-> magias[nummagia].mostrarGastoManaMagia();
-      cout << this-> magias[nummagia].mostraImagemMagia();
+      this->mana -= this-> magias[nummagia].mostrarGastoManaMagia();// tira a mana gasta do jogador ex: 100/100 vira 88/100
+      cout << this-> magias[nummagia].mostraImagemMagia();//mostra a imagem da magia
       return -1;
     }
-    this->mana -= this-> magias[nummagia].mostrarGastoManaMagia();
-    cout << this-> magias[nummagia].mostraImagemMagia();
+    this->mana -= this-> magias[nummagia].mostrarGastoManaMagia();// tira a mana gasta do jogador ex: 100/100 vira 88/100
+    cout << this-> magias[nummagia].mostraImagemMagia();//mostra a imagem da magia
   }else{
     cout << "Numero invalido, digite novamente\n";
     return 0;
@@ -233,9 +243,10 @@ int Personagem::usarMagia(int nummagia)
 /////////////////////////////////////////Calculo de Arma e Magia //////////////////////////////////
 int Personagem::receberDano(int dano, int ataque)
 {
+  //ataque = 1 dano de magia, ataque = 0 dano fisico
   int danoRecebido=0;
   int esquiva = calcularDesvio(this->agilidade);
-  if (esquiva == 1 && ataque == 0)
+  if (esquiva == 1 && ataque == 0)//calcula esquiva somente de armas
   {
     return 0;
   }
@@ -267,6 +278,16 @@ int Personagem::receberDano(int dano, int ataque)
   }
   return danoRecebido;
 }
+void Personagem::descansar(){
+  if(this->vida + 100 < this->maxvida){//cura sem de vidao ao descansar,
+  // mas personagens que ja tem cura como mago e paladino não podem usar
+    this->vida+= 100;
+  }else{
+    this->vida = this->maxvida;
+  }
+  cout << "Ao descansar voce curou +100 de vida\n";
+  regeneraMana();
+}
 ////////////////montrar coisa no main/////////////////////////////////////////
 int Personagem::mostrarAtributos(string jogadoratual){
   cout << "\n\n-------------------"<< jogadoratual <<"------------------------";
@@ -274,5 +295,8 @@ int Personagem::mostrarAtributos(string jogadoratual){
       << " \nVida: " << this->vida <<"/"<<this->maxvida
        << "  Mana: " << this->mana <<"/"<<this->maxmana;
        return imprimirbencaoBulKathos();
+}
+string Personagem::tipoJogador(){
+  return this->nome;
 }
 
