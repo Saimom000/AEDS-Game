@@ -16,6 +16,7 @@ private:
   int gastoMana;
   string imagemMagia;
   void fazerMagia(string nome);
+
 public:
   Magia(string nome);
   int mostrarDanoMagia();
@@ -24,26 +25,44 @@ public:
   int mostrarGastoManaMagia();
   string mostraImagemMagia();
 };
-void Magia::fazerMagia(string nome){
-  if(nome == "pocao_da_vida"){
+void Magia::fazerMagia(string nome)
+{
+  if (nome == "pocao_da_vida")
+  {
     this->imagemMagia = "\n\n           ===\n         ( + + )\n         ( + + )\n";
-  }else if(nome == "halito_de_fogo"){
+  }
+  else if (nome == "halito_de_fogo")
+  {
     this->imagemMagia = "\n\n\t  [----<<<<<\n\t  [----<<<<<\n";
-  }else if(nome == "bio"){
-    this->imagemMagia ="\n\n\t   - {             \n\t   |            \n\t  [ ]\n";
-  }else if(nome == "cura"){
-    this->imagemMagia ="\n\n\t++++++\n\t+ }{ +\n\t++++++\n";
-  }else if(nome == "flama_gelada"){  
-    this->imagemMagia ="\n\n\t  [:::::>>>>\n\t  [:::::>>>>\n";
-  }else if(nome == "intoxicacao"){
-    this->imagemMagia ="\n\n           ===\n         ( x x )\n         ( x x )\n";;
-  }else if (nome == "tempestade"){
-    this->imagemMagia ="\n\n\t  (  ::       ;    )\n\t(     ;     :::      )\n         /        \\        / \n         \\        /\\      / \n";
-  }else{
-      this->imagemMagia ="";
+  }
+  else if (nome == "bio")
+  {
+    this->imagemMagia = "\n\n\t   - {             \n\t   |            \n\t  [ ]\n";
+  }
+  else if (nome == "cura")
+  {
+    this->imagemMagia = "\n\n\t++++++\n\t+ }{ +\n\t++++++\n";
+  }
+  else if (nome == "flama_gelada")
+  {
+    this->imagemMagia = "\n\n\t  [:::::>>>>\n\t  [:::::>>>>\n";
+  }
+  else if (nome == "intoxicacao")
+  {
+    this->imagemMagia = "\n\n           ===\n         ( x x )\n         ( x x )\n";
+    ;
+  }
+  else if (nome == "tempestade")
+  {
+    this->imagemMagia = "\n\n\t  (  ::       ;    )\n\t(     ;     :::      )\n         /        \\        / \n         \\        /\\      / \n";
+  }
+  else
+  {
+    this->imagemMagia = "";
   }
 }
-Magia::Magia(string nome){
+Magia::Magia(string nome)
+{
 
   srand(time(0));
 
@@ -57,18 +76,23 @@ Magia::Magia(string nome){
   fazerMagia(nome);
 }
 
-int Magia::mostrarDanoMagia(){
+int Magia::mostrarDanoMagia()
+{
   return this->dano;
 }
-int Magia::mostrarCuraMagia(){
+int Magia::mostrarCuraMagia()
+{
   return this->cura;
 }
-string Magia::mostrarNomeMagia(){
+string Magia::mostrarNomeMagia()
+{
   return this->nome;
 }
-int Magia::mostrarGastoManaMagia(){
+int Magia::mostrarGastoManaMagia()
+{
   return this->gastoMana;
 }
-string Magia::mostraImagemMagia(){
+string Magia::mostraImagemMagia()
+{
   return this->imagemMagia;
 }

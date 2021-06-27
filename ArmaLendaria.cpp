@@ -14,6 +14,7 @@ private:
   int chanseCritico;
   int danoCritico;
   int chanseDrop;
+
 public:
   ArmaLendaria(string nomeArma);
   int CalcularDano() override;
@@ -40,6 +41,7 @@ int ArmaLendaria::CalcularDano()
 
   return dano;
 }
-int ArmaLendaria::DropLendaria(){
+int ArmaLendaria::DropLendaria()
+{
   return this->chanseDrop;
 }
