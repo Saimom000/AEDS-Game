@@ -389,9 +389,11 @@ int main()
     if (n == 1)
     {
       imprimirinicio();
+    }else if (n == 2){
+        cout << "Ate um outro dia\n";
     }
     else
-      cout << "Valor digitado invalido";
+      cout << "Valor digitado invalido\n";
 
   } while (n != 2);
 
