@@ -44,8 +44,7 @@ void imprimirmenu()
   setlocale(LC_ALL, "portuguese");
 
   int opcao, lendaria = 0, dano, magia, k, v, tipo;
-
-  for (int i = 1; i != 0; i++) // turnos
+  for (int i = 1; i != 4; i++) //turnos
   {
     bool eJogador1 = i % 2 != 0;
     int jogador = eJogador1 ? 1 : 2;
@@ -53,14 +52,16 @@ void imprimirmenu()
 
     string jogadoratual = eJogador1 ? "Jogador 1" : "Jogador 2";
     string jogadorNaoatual = eJogador1 ? "Jogador 2" : "Jogador 1";
-
+    
     if (jogador == 1)
     { // mostra os atributos do jogador 1 ou 2 , arma equipada, vida, mana ...
       lendaria = player1->mostrarAtributos(jogadoratual);
+      player1->mostraUlti(player1->tipoJogador());
     }
     else
     {
       lendaria = player2->mostrarAtributos(jogadoratual);
+      player2->mostraUlti(player2->tipoJogador());
     }
     do
     { // resetar caso o valor digitado seja invalido ou queira voltar para o menu

@@ -62,7 +62,7 @@ void Arma::fazerArmas(string nome)
   }
   else if (nome == "Voto_Solene_de_Bul_Kathos")
   {
-    this->imagemArma = "\n\n   <===/'''''''''''''''/\n       `''''''''''''''`";
+    this->imagemArma = "\n\n            /\\~~~~~~~~~~~~~~~~~~~~~\\\n<==========|++  0  0  0  0  0  0  0 |\n            \\/^^^^^^^^^^^^^^^^^^^^^/\n";
   }
   else
   {
