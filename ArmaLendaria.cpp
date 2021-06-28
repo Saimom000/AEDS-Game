@@ -24,20 +24,19 @@ public:
 ArmaLendaria::ArmaLendaria(string nomeArma) : Arma(nomeArma)
 {
   srand(time(0));
+
   this->chanseCritico = 30;
   this->danoCritico = 100;
   this->chanseDrop = 20;
 }
 int ArmaLendaria::CalcularDano()
 {
-  //durabilidade -= 1;
+  // durabilidade -= 1;
   int dano = danoMin + (rand() % (danoMax - danoMin + 1));
   int chanceDeCritico = (rand() % 100) + 1;
 
   if (chanceDeCritico <= this->chanseCritico)
-  {
     dano += dano * (this->danoCritico / 100);
-  }
 
   return dano;
 }

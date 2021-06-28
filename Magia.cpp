@@ -63,7 +63,6 @@ void Magia::fazerMagia(string nome)
 }
 Magia::Magia(string nome)
 {
-
   srand(time(0));
 
   this->nome = nome;
@@ -73,6 +72,7 @@ Magia::Magia(string nome)
   this->dano = stoi(list.at(0));
   this->cura = stoi(list.at(1));
   this->gastoMana = stoi(list.at(2));
+
   fazerMagia(nome);
 }
 

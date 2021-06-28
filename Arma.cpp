@@ -29,7 +29,6 @@ public:
   int mostraDanoMinArma();
   int mostraDanoMaxArma();
   void semDurabilidade();
-  ~Arma();
 };
 void Arma::fazerArmas(string nome)
 {
@@ -81,8 +80,8 @@ Arma::Arma(string nome)
   this->danoMin = stoi(list.at(0));
   this->danoMax = stoi(list.at(1));
   this->durabilidade = stoi(list.at(2));
+
   fazerArmas(nome);
-  //cout <<"Danomin" <<this->danoMin;
 }
 int Arma::CalcularDano()
 {
@@ -90,11 +89,11 @@ int Arma::CalcularDano()
 
   int numeromax = this->danoMax - this->danoMin + 1;
   int calculo = this->danoMin + (rand() % numeromax);
-  //cout <<"CalculoDano"<< calculo <<"\n";
+
   return calculo;
 }
 
-////mostra coisa no main
+// mostra coisa no main
 string Arma::mostraNomeArma()
 {
   return this->nome;
@@ -114,8 +113,4 @@ int Arma::mostraDanoMinArma()
 int Arma::mostraDurabiArma()
 {
   return this->durabilidade;
-}
-
-Arma::~Arma()
-{
 }

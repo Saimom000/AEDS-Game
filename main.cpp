@@ -9,14 +9,15 @@
 using namespace std;
 
 Personagem *player1, *player2;
+
 int semDescansar(string nome)
 { // o jogador do tipo paladino ou mago n podem descansar
   if (nome == "mago" || nome == "paladino")
-  {
     return 1;
-  }
+
   return 0;
 }
+
 void jogadormenu(string atacante, int tipo)
 {
   if (tipo == 1)
@@ -41,16 +42,20 @@ void jogadormenu(string atacante, int tipo)
 void imprimirmenu()
 {
   setlocale(LC_ALL, "portuguese");
-  int opcao, lendaria = 0, dano, magia, k, v, tipo;
-  for (int i = 1; i != 0; i++) //turnos
-  {
 
-    int jogador = i % 2 != 0 ? 1 : 2;
-    int vitima = i % 2 != 0 ? 2 : 1;
-    string jogadoratual = i % 2 != 0 ? "Jogador 1" : "Jogador 2";
-    string jogadorNaoatual = i % 2 != 0 ? "Jogador 2" : "Jogador 1";
+  int opcao, lendaria = 0, dano, magia, k, v, tipo;
+
+  for (int i = 1; i != 0; i++) // turnos
+  {
+    bool eJogador1 = i % 2 != 0;
+    int jogador = eJogador1 ? 1 : 2;
+    int vitima = eJogador1 ? 2 : 1;
+
+    string jogadoratual = eJogador1 ? "Jogador 1" : "Jogador 2";
+    string jogadorNaoatual = eJogador1 ? "Jogador 2" : "Jogador 1";
+
     if (jogador == 1)
-    { //mostra os atributos do jogador 1 ou 2 , arma equipada, vida, mana ...
+    { // mostra os atributos do jogador 1 ou 2 , arma equipada, vida, mana ...
       lendaria = player1->mostrarAtributos(jogadoratual);
     }
     else
@@ -58,7 +63,7 @@ void imprimirmenu()
       lendaria = player2->mostrarAtributos(jogadoratual);
     }
     do
-    { //resetar caso o valor digitado seja invalido ou queira voltar para o menu
+    { // resetar caso o valor digitado seja invalido ou queira voltar para o menu
       v = 1;
 
       if (jogador == 1)
@@ -71,20 +76,22 @@ void imprimirmenu()
         tipo = semDescansar(player2->tipoJogador());
         jogadormenu(jogadoratual, tipo);
       }
+
       cin >> opcao;
       cout << "\n";
+
       switch (opcao)
       {
-      case 1: //atacar com arma
+      case 1: // atacar com arma
         if (jogador == 1)
         {
           dano = player2->receberDano(player1->atacarArma(lendaria), 0);
           if (dano == 0)
-          { //errou o ataque
+          { // errou o ataque
             cout << "Voce errou o ataque\n";
           }
           else if (dano == -1)
-          { //o jogador inimigo morreu
+          { // o jogador inimigo morreu
             cout << "\nO " << jogadorNaoatual << " morreu, voce venceu o jogo\n"
                  << "\n O " << jogadoratual << " VENCEU\n"
                  << "OBRIGADO POR JOGAR :)\n";
@@ -94,7 +101,8 @@ void imprimirmenu()
           {
             cout << "Voce causou " << dano << " no " << jogadorNaoatual << "\n";
           }
-          player1->semDurabilidade(); //verifica se a durabilidade de arma atual acabou, se for a arma base nao mostra mensagem
+
+          player1->semDurabilidade(); // verifica se a durabilidade de arma atual acabou, se for a arma base nao mostra mensagem
         }
         else
         {
@@ -106,8 +114,8 @@ void imprimirmenu()
           else if (dano == -1)
           {
             cout << "\nO " << jogadorNaoatual << " morreu, voce venceu o jogo\n"
-                     << "\n O " << jogadoratual << " VENCEU\n"
-                     << "OBRIGADO POR JOGAR :)\n";
+                 << "\n O " << jogadoratual << " VENCEU\n"
+                 << "OBRIGADO POR JOGAR :)\n";
             i = -1;
           }
           else
@@ -118,22 +126,19 @@ void imprimirmenu()
         }
 
         break;
-      case 2: //atacar ou curar com magia
+      case 2: // atacar ou curar com magia
 
         if (jogador == 1)
-        {
           player1->listarMagias();
-        }
         else
-        {
           player2->listarMagias();
-        }
+
         do
-        { //repete se o numero digitado for invalido ou ficar sem mana
+        { // repete se o numero digitado for invalido ou ficar sem mana
           k = 1;
           cin >> magia;
           if (magia != 0)
-          { //se for magia for 0 ele vai voltar para o menu anterior
+          { // se for magia for 0 ele vai voltar para o menu anterior
 
             if (jogador == 1)
             {
@@ -148,19 +153,19 @@ void imprimirmenu()
                      << "\n O " << jogadoratual << " VENCEU\n"
                      << "OBRIGADO POR JOGAR :)\n";
                 i = -1;
-                //o jogador inimigo morreu
+                // o jogador inimigo morreu
               }
               else if (dano == -2)
-              { //cura
+              { // cura
                 cout << "\nVoce foi curado\n";
               }
               else if (dano == -3)
-              { //sem mana
+              { // sem mana
                 cout << "Voce esta sem mana, escolha uma opcao novamente:\n";
                 k = 0;
               }
               else if (dano == -4)
-              { //numero invalido
+              { // numero invalido
                 k = 0;
               }
               else
@@ -172,28 +177,28 @@ void imprimirmenu()
             {
               dano = player1->receberDano(player2->usarMagia(magia), 1);
               if (dano == 0)
-              { //nao da pra desviar de magia, mas se precisar colocar esta aqui
+              { // nao da pra desviar de magia, mas se precisar colocar esta aqui
                 cout << "Voce errou o ataque\n";
               }
               else if (dano == -1)
-              { //jogador inimigo morreu
+              { // jogador inimigo morreu
                 cout << "\nO " << jogadorNaoatual << " morreu, voce venceu o jogo\n"
                      << "\n O " << jogadoratual << " VENCEU\n"
                      << "OBRIGADO POR JOGAR :)\n";
                 i = -1;
-                //o jogador inimigo morreu
+                // o jogador inimigo morreu
               }
               else if (dano == -2)
-              { //cura
+              { // cura
                 cout << "\nVoce foi curado\n";
               }
               else if (dano == -3)
-              { //sem mana
+              { // sem mana
                 cout << "Voce esta sem mana, escolha uma opcao novamente:\n";
                 k = 0;
               }
               else if (dano == -4)
-              { //numero invalido
+              { // numero invalido
                 k = 0;
               }
               else
@@ -207,11 +212,11 @@ void imprimirmenu()
             v = 0;
           }
         } while (k == 0);
-        //player2->receberDano(player1->UsarMagia(),1);
+        // player2->receberDano(player1->UsarMagia(),1);
 
         break;
       case 3: //trocar arma
-        //player2->receberDano(player1->atacarArma(),0);
+        // player2->receberDano(player1->atacarArma(),0);
         if (jogador == 1)
         {
           if (player1->verificaArmaTroca() == 1)
@@ -237,7 +242,7 @@ void imprimirmenu()
           }
         }
         break;
-      case 4: //ver todos atributos
+      case 4: // ver todos atributos
         if (jogador == 1)
         {
           cout << "Seus Atributos:\n";
@@ -254,26 +259,19 @@ void imprimirmenu()
         }
         v = 0;
         break;
-      case 5: //descansar
-
+      case 5: // descansar
         if (tipo != 1)
         {
           if (jogador == 1)
-          {
-
             player1->descansar();
-          }
           else
-          {
             player2->descansar();
-          }
         }
         else
         {
           cout << "Valor digitado invalido\n";
           v = 0;
         }
-
         break;
       default:
         cout << "Valor digitado invalido\n";
@@ -283,9 +281,11 @@ void imprimirmenu()
     } while (v == 0);
   }
 }
+
 void imprimirinicio()
 {
   int i, num_perso, num_perso2;
+
   // player 1
   for (i = 0; i < 1; i++)
   {
@@ -328,6 +328,7 @@ void imprimirinicio()
       break;
     }
   }
+
   // player 2
   for (i = 0; i < 1; i++)
   {
@@ -364,26 +365,20 @@ void imprimirinicio()
     case 8:
       player2 = new Personagem("zumbi");
       break;
-
     default:
       cout << "Numero de personagem invalido";
       i--;
       break;
     }
   }
-  cout << "\n\n\n";
-  imprimirmenu();
-}
 
-void jogo()
-{
+  cout << "\n\n\n";
+
+  imprimirmenu();
 }
 
 int main()
 {
-
-  // Personagem *exemplo = new Personagem("guerreiro");
-
   int n = 0;
   do
   {
@@ -393,10 +388,6 @@ int main()
     if (n == 1)
     {
       imprimirinicio();
-      jogo();
-    }
-    else if (n == 2)
-    {
     }
     else
       cout << "Valor digitado invalido";
