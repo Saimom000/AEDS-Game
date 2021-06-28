@@ -1,1 +1,1 @@
-6,2800,20,100,20,70,35,20,2,cajado,porrete,intoxicacao,
+6,2800,20,100,20,70,45,20,2,cajado,porrete,intoxicacao,

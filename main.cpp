@@ -34,7 +34,7 @@ void jogadormenu(string atacante, int tipo)
          << "2 - Usar magia\n"
          << "3 - Trocar arma\n"
          << "4 - Ver TODOS os atributos dos 2 jogadores\n"
-         << "5 - Descansar (+100 vida)\n";
+         << "5 - Descansar (+120 vida)\n";
   }
 }
 

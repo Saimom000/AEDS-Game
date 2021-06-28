@@ -321,16 +321,16 @@ int Personagem::receberDano(int dano, int ataque)
 }
 void Personagem::descansar()
 {
-  if (this->vida + 100 < this->maxvida)
+  if (this->vida + 120 < this->maxvida)
   { //cura sem de vidao ao descansar,
     // mas personagens que ja tem cura como mago e paladino não podem usar
-    this->vida += 100;
+    this->vida += 120;
   }
   else
   {
     this->vida = this->maxvida;
   }
-  cout << "Ao descansar voce curou +100 de vida\n";
+  cout << "Ao descansar voce curou +120 de vida\n";
   regeneraMana();
 }
 ////////////////montrar coisa no main/////////////////////////////////////////
