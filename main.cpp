@@ -18,7 +18,7 @@ int semDescansar(string nome)
   return 0;
 }
 
-void jogadormenu(string atacante, int tipo)
+void jogadormenu(string atacante, int tipo, bool mostraUlt)
 {
   if (tipo == 1)
   {
@@ -27,6 +27,8 @@ void jogadormenu(string atacante, int tipo)
          << "2 - Usar magia\n"
          << "3 - Trocar arma\n"
          << "4 - Ver TODOS os atributos dos 2 jogadores\n";
+    if (mostraUlt)
+      cout << "6 - Usar ULTIMATE\n";
   }
   else
   {
@@ -36,6 +38,8 @@ void jogadormenu(string atacante, int tipo)
          << "3 - Trocar arma\n"
          << "4 - Ver TODOS os atributos dos 2 jogadores\n"
          << "5 - Descansar (+120 vida)\n";
+    if (mostraUlt)
+      cout << "6 - Usar ULTIMATE\n";
   }
 }
 
@@ -44,7 +48,7 @@ void imprimirmenu()
   setlocale(LC_ALL, "portuguese");
 
   int opcao, lendaria = 0, dano, magia, k, v, tipo;
-  for (int i = 1; i != 4; i++) //turnos
+  for (int i = 1; i != 0; i++) // turnos
   {
     bool eJogador1 = i % 2 != 0;
     int jogador = eJogador1 ? 1 : 2;
@@ -52,16 +56,14 @@ void imprimirmenu()
 
     string jogadoratual = eJogador1 ? "Jogador 1" : "Jogador 2";
     string jogadorNaoatual = eJogador1 ? "Jogador 2" : "Jogador 1";
-    
+
     if (jogador == 1)
     { // mostra os atributos do jogador 1 ou 2 , arma equipada, vida, mana ...
       lendaria = player1->mostrarAtributos(jogadoratual);
-      player1->mostraUlti(player1->tipoJogador());
     }
     else
     {
       lendaria = player2->mostrarAtributos(jogadoratual);
-      player2->mostraUlti(player2->tipoJogador());
     }
     do
     { // resetar caso o valor digitado seja invalido ou queira voltar para o menu
@@ -69,13 +71,13 @@ void imprimirmenu()
 
       if (jogador == 1)
       { // o jogador do tipo paladino ou mago nao podem descansar
-        tipo = semDescansar(player1->tipoJogador());
-        jogadormenu(jogadoratual, tipo);
+        tipo = semDescansar(player1->retornaNome());
+        jogadormenu(jogadoratual, tipo, player1->retornaturnosUlt() == 0);
       }
       else if (jogador == 2)
       {
-        tipo = semDescansar(player2->tipoJogador());
-        jogadormenu(jogadoratual, tipo);
+        tipo = semDescansar(player2->retornaNome());
+        jogadormenu(jogadoratual, tipo, player2->retornaturnosUlt() == 0);
       }
 
       cin >> opcao;
@@ -123,6 +125,7 @@ void imprimirmenu()
           {
             cout << "Voce causou " << dano << " de dano no " << jogadorNaoatual << "\n";
           }
+
           player2->semDurabilidade();
         }
 
@@ -213,11 +216,9 @@ void imprimirmenu()
             v = 0;
           }
         } while (k == 0);
-        // player2->receberDano(player1->UsarMagia(),1);
 
         break;
       case 3: //trocar arma
-        // player2->receberDano(player1->atacarArma(),0);
         if (jogador == 1)
         {
           if (player1->verificaArmaTroca() == 1)
@@ -258,8 +259,10 @@ void imprimirmenu()
           cout << "\nAtributos do jogador 1:\n";
           player1->mostrarTodosAtributos();
         }
+
         v = 0;
         break;
+
       case 5: // descansar
         if (tipo != 1)
         {
@@ -273,6 +276,72 @@ void imprimirmenu()
           cout << "Valor digitado invalido\n";
           v = 0;
         }
+
+        break;
+
+      case 6: // ult
+        if (jogador == 1)
+        {
+          if (player1->retornaturnosUlt() == 0)
+          {
+            dano = player2->receberDano(player1->atacaUlt(), player1->retornaUlt() == NULL ? 1 : 0);
+            player1->resetaUlt();
+            if (dano == 0)
+            { // errou o ataque
+              cout << "Voce errou o ataque\n";
+            }
+            else if (dano == -1)
+            { // o jogador inimigo morreu
+              cout << "\nO " << jogadorNaoatual << " morreu, voce venceu o jogo\n"
+                   << "\n O " << jogadoratual << " VENCEU\n"
+                   << "OBRIGADO POR JOGAR :)\n";
+              i = -1;
+            }
+            else
+            {
+              player1->mostraUlti(player1->retornaNome());
+              cout << "Voce causou " << dano << " no " << jogadorNaoatual << "\n";
+            }
+
+            player1->semDurabilidade(); // verifica se a durabilidade de arma atual acabou, se for a arma base nao mostra mensagem
+          }
+          else
+          {
+            v = 0;
+            cout << "Voce precisa esperar a sua ULTIMATE carregar para poder usa-la >:(\n";
+          }
+        }
+        else
+        {
+          if (player2->retornaturnosUlt() == 0)
+          {
+            dano = player1->receberDano(player2->atacaUlt(), player2->retornaUlt() == NULL ? 1 : 0);
+            player2->resetaUlt();
+            if (dano == 0)
+            {
+              cout << "Voce errou o ataque\n";
+            }
+            else if (dano == -1)
+            {
+              cout << "\nO " << jogadorNaoatual << " morreu, voce venceu o jogo\n"
+                   << "\n O " << jogadoratual << " VENCEU\n"
+                   << "OBRIGADO POR JOGAR :)\n";
+              i = -1;
+            }
+            else
+            {
+              player2->mostraUlti(player2->retornaNome());
+              cout << "Voce causou " << dano << " de dano no " << jogadorNaoatual << "\n";
+            }
+            player2->semDurabilidade();
+          }
+          else
+          {
+            v = 0;
+            cout << "Voce precisa esperar a sua ULTIMATE carregar para poder usa-la >:(\n";
+          }
+        }
+
         break;
       default:
         cout << "Valor digitado invalido\n";
@@ -389,8 +458,10 @@ int main()
     if (n == 1)
     {
       imprimirinicio();
-    }else if (n == 2){
-        cout << "Ate um outro dia\n";
+    }
+    else if (n == 2)
+    {
+      cout << "Ate um outro dia\n";
     }
     else
       cout << "Valor digitado invalido\n";

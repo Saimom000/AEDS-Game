@@ -10,6 +10,8 @@
 #include "ArmaLendaria.cpp"
 #include "Accessdata.cpp"
 
+const int TURNOS_ULT = 10;
+
 using namespace std;
 
 class Personagem
@@ -26,8 +28,9 @@ private:
   int resistenciaMagica;
   int agilidade;
   int quantidadeArmas;
-  string nomeUlti;
-  int turnosUlti;
+  int turnosUlt = TURNOS_ULT;
+  Arma *ult = NULL;
+  Magia *ultMagia = NULL;
   vector<Arma> armaAtual;
   vector<Arma> armas;
   vector<Magia> magias;
@@ -48,11 +51,15 @@ public:
   void semDurabilidade();                    // arma
   void trocarArma();                         // arma
   void descansar();                          // cura 120 de vida
-  string tipoJogador();                      // retorna o nome
+  string retornaNome();                      // retorna o nome
   int verificaArmaTroca();                   // arma
   void mostrarTodosAtributos();              // printa todos os atributos dos 2 jogadores
   void montarUltimates();                    // ulti
+  int retornaturnosUlt();                    // ulti
   void mostraUlti(string nome);              // teste
+  Arma *retornaUlt();                        // ulti
+  int atacaUlt();                            // ulti
+  void resetaUlt();                          // ulti
 };
 Personagem::Personagem(string nome)
 {
@@ -91,139 +98,175 @@ Personagem::Personagem(string nome)
   ArmaLendaria *lenda = new ArmaLendaria("Voto_Solene_de_Bul_Kathos");
   lendaria.push_back(*lenda);
 
+  // ===== ULT =====
+
+  if (nome == "guerreiro")
+  {
+    ult = new Arma("ult_guerreiro");
+
+    ult;
+  }
+  else if (nome == "ladrao")
+  {
+    ult = new Arma("ult_ladrao");
+  }
+  else if (nome == "mago")
+  {
+    ultMagia = new Magia("ult_mago");
+  }
+  else if (nome == "paladino")
+  {
+    ultMagia = new Magia("ult_paladino");
+  }
+  else if (nome == "animal")
+  {
+    ult = new Arma("ult_animal");
+  }
+  else if (nome == "troll")
+  {
+    ult = new Arma("ult_troll");
+  }
+  else if (nome == "dragao")
+  {
+    ult = new Arma("ult_dragao");
+  }
+  else if (nome == "zumbi")
+  {
+    ultMagia = new Magia("ult_zumbi");
+  }
 }
 ///////////////////////////////////////////////Imagem Ulti/////////////////////////////////////////
 void Personagem::mostraUlti(string nome)
 {
   if (nome == "guerreiro")
   {
-    cout << endl << "Ulti: Espada do Rei Destruido" << endl;
-    cout <<
-      endl <<
-      "      /\\---------------------------------\\"
-      << endl <<
-      "<====={} ------------>                    |"
-      << endl <<
-      "      \\/---------------------------------/ "
-      << endl ;
+    cout << endl
+         << "Ulti: Espada do Rei Destruido" << endl;
+    cout << endl
+         << "      /\\---------------------------------\\"
+         << endl
+         << "<====={} ------------>                    |"
+         << endl
+         << "      \\/---------------------------------/ "
+         << endl;
   }
   else if (nome == "ladrao")
   {
-    cout << endl << "Ulti: Veneno de dois Gumes" << endl;
-    cout <<
-      endl <<
-      " </^^^^^^^^^^\\                        /^^^^^^^^^^\\>"
-      << endl <<
-      "<| }{  }{  }{ |=======()>  <()=======| }{  }{  }{ |>"
-      << endl <<
-      "  `^^^^^^^^^^^`                       `^^^^^^^^^^^`"
-      << endl ;
+    cout << endl
+         << "Ulti: Veneno de dois Gumes" << endl;
+    cout << endl
+         << " </^^^^^^^^^^\\                        /^^^^^^^^^^\\>"
+         << endl
+         << "<| }{  }{  }{ |=======()>  <()=======| }{  }{  }{ |>"
+         << endl
+         << "  `^^^^^^^^^^^`                       `^^^^^^^^^^^`"
+         << endl;
   }
   else if (nome == "mago")
   {
-    cout << endl << "Ulti: Explosao Primordial" << endl;
-    cout <<
-      endl <<
-      "                            </=-------=\\>"
-      << endl <<
-      "<===============()=()=()=()=|( @ @ )"
-      << endl <<
-      "                            <\\=-------=/>"
-      << endl ;
+    cout << endl
+         << "Ulti: Explosao Primordial" << endl;
+    cout << endl
+         << "                            </=-------=\\>"
+         << endl
+         << "<===============()=()=()=()=|( @ @ )"
+         << endl
+         << "                            <\\=-------=/>"
+         << endl;
   }
   else if (nome == "paladino")
   {
-    cout << endl << "Ulti: Protecao da Aurora" << endl;
-    cout <<
-      endl <<
-      "      /T\\"
-      << endl <<
-      "     / - \\"
-      << endl <<
-      "    /= - =\\"
-      << endl << 
-      "   / = - = \\"
-      << endl <<
-      " (  =  0  =  )"
-      << endl <<
-      "(   =  0  =   )"
-      << endl << 
-      " (  =  0  =  )"
-      << endl <<
-      "   \\ = - = /"
-      << endl <<
-      "    \\= - =/"
-      << endl << 
-      "     \\ - /"
-      << endl <<
-      "      \\T/"
-      << endl;
+    cout << endl
+         << "Ulti: Protecao da Aurora" << endl;
+    cout << endl
+         << "      /T\\"
+         << endl
+         << "     / - \\"
+         << endl
+         << "    /= - =\\"
+         << endl
+         << "   / = - = \\"
+         << endl
+         << " (  =  0  =  )"
+         << endl
+         << "(   =  0  =   )"
+         << endl
+         << " (  =  0  =  )"
+         << endl
+         << "   \\ = - = /"
+         << endl
+         << "    \\= - =/"
+         << endl
+         << "     \\ - /"
+         << endl
+         << "      \\T/"
+         << endl;
   }
   else if (nome == "animal")
   {
-    cout << endl << "Ulti: Emissario da Tempestade" << endl;
-    cout <<
-      endl <<
-      "         /\\\\"
-      << endl <<
-      "        /   \\\\"
-      << endl <<
-      "       /     \\\\"
-      << endl << 
-      "  >---{-------||--->"
-      << endl <<
-      "       \\     //"
-      << endl <<
-      "        \\   //"
-      << endl << 
-      "         \\//"
-      << endl;
+    cout << endl
+         << "Ulti: Emissario da Tempestade" << endl;
+    cout << endl
+         << "         /\\\\"
+         << endl
+         << "        /   \\\\"
+         << endl
+         << "       /     \\\\"
+         << endl
+         << "  >---{-------||--->"
+         << endl
+         << "       \\     //"
+         << endl
+         << "        \\   //"
+         << endl
+         << "         \\//"
+         << endl;
   }
   else if (nome == "troll")
   {
-    cout << endl << "Ulti: Subjugar" << endl;
-    cout <<
-      endl <<
-      "  ________________/::::::::::::::::::::::::\\)"
-      << endl <<
-      " |----------------|@@@@@@@@@@@@@@@@@@@@@@@@|)"
-      << endl <<
-      "  ^^^^^^^^^^^^^^^^\\::::::::::::::::::::::::/)"
-      << endl ;
+    cout << endl
+         << "Ulti: Subjugar" << endl;
+    cout << endl
+         << "  ________________/::::::::::::::::::::::::\\)"
+         << endl
+         << " |----------------|@@@@@@@@@@@@@@@@@@@@@@@@|)"
+         << endl
+         << "  ^^^^^^^^^^^^^^^^\\::::::::::::::::::::::::/)"
+         << endl;
   }
   else if (nome == "dragao")
   {
-    cout << endl << "Ulti: Coercao Infinita" << endl;
-    cout <<
-      endl <<
-      "   <==\\====0==|        |==0====/==>"
-      << endl <<
-      " <=====\\===0==|        |==0===/=====>"
-      << endl <<
-      "<======|===0==|        |==0===|======>"
-      << endl <<
-      " <=====/===0==|        |==0===\\=====>"
-      << endl <<
-      "    <==/===0==|        |==0====\\==>"
-      << endl ;
+    cout << endl
+         << "Ulti: Coercao Infinita" << endl;
+    cout << endl
+         << "   <==\\====0==|        |==0====/==>"
+         << endl
+         << " <=====\\===0==|        |==0===/=====>"
+         << endl
+         << "<======|===0==|        |==0===|======>"
+         << endl
+         << " <=====/===0==|        |==0===\\=====>"
+         << endl
+         << "    <==/===0==|        |==0====\\==>"
+         << endl;
   }
   else if (nome == "zumbi")
   {
-    cout << endl << "Ulti: Aperto Mortal" << endl;
-    cout <<
-      endl <<
-      "       / ` \\- ``\\` ``.-.__."
-      << endl <<
-      "    _-`|    |    | \\   \\.  \\"
-      << endl <<
-      " /`   ` \\ _ / \\_ / -\\ _/ \\_ /"
-      << endl <<
-      " \\   `\\               /  "
-      << endl <<
-      "  \\_ _/  _    .   __/"
-      << endl <<
-      "  /              /"
-      << endl ;
+    cout << endl
+         << "Ulti: Aperto Mortal" << endl;
+    cout << endl
+         << "       / ` \\- ``\\` ``.-.__."
+         << endl
+         << "    _-`|    |    | \\   \\.  \\"
+         << endl
+         << " /`   ` \\ _ / \\_ / -\\ _/ \\_ /"
+         << endl
+         << " \\   `\\               /  "
+         << endl
+         << "  \\_ _/  _    .   __/"
+         << endl
+         << "  /              /"
+         << endl;
   }
 }
 ////////////////////////////////RegeneraMana//////////////////////////////////////
@@ -270,8 +313,9 @@ int Personagem::calcularDesvio(int agilidade)
 int Personagem::atacarArma(int lenda)
 {
   int danoArma = 0;
-
-  if (lenda == 1)
+  if (lenda == 2)
+    danoArma = (*this->ult).CalcularDano();
+  else if (lenda == 1)
     danoArma = this->lendaria[0].CalcularDano();
   else
     danoArma = this->armaAtual[0].CalcularDano();
@@ -367,10 +411,17 @@ int Personagem::usarMagia(int nummagia)
 
   int danoMagia = 0;
 
-  if (nummagia >= 0 && nummagia < this->magias.size())
+  if (nummagia >= 0 && nummagia <= this->magias.size())
   { // verifica se o numero digitado foi valido
     danoMagia = this->magias[nummagia].mostrarDanoMagia();
-    if (this->mana - this->magias[nummagia].mostrarGastoManaMagia() < 0)
+
+    if (nummagia == this->magias.size())
+    {
+      danoMagia = (*this->ultMagia).mostrarDanoMagia();
+      danoMagia = danoMagia + (danoMagia * (this->forcaMagica) / 100);
+      return danoMagia;
+    }
+    else if (this->mana - this->magias[nummagia].mostrarGastoManaMagia() < 0)
     { // verifica se tem mana suficiente para usar a magia
       return -2;
     }
@@ -479,12 +530,21 @@ int Personagem::mostrarAtributos(string jogadoratual)
        << " \nVida: " << this->vida << "/" << this->maxvida
        << "  Mana: " << this->mana << "/" << this->maxmana
        << "  Armas para troca: " << quantidadeArmaTroca()
+       << "\nFalta " << this->turnosUlt << " turnos para poder usar a sua ULTIMATE"
        << endl;
+
+  if (this->turnosUlt > 0)
+    this->turnosUlt--;
+
   return imprimiArmas();
 }
-string Personagem::tipoJogador()
+string Personagem::retornaNome()
 {
   return this->nome;
+}
+int Personagem::retornaturnosUlt()
+{
+  return this->turnosUlt;
 }
 void Personagem::mostrarTodosAtributos()
 { //printa todos os atributos do 2 personagens
@@ -497,4 +557,19 @@ void Personagem::mostrarTodosAtributos()
        << "  Resistencia Magica: " << this->resistenciaMagica << "%"
        << "  Agilidade: " << this->agilidade << "%"
        << "\n";
+}
+int Personagem::atacaUlt()
+{ // ataca com a ult
+  if (this->ult == NULL)
+    return this->usarMagia(this->magias.size() + 1);
+  else
+    return this->atacarArma(2);
+}
+Arma *Personagem::retornaUlt()
+{
+  return this->ult;
+}
+void Personagem::resetaUlt()
+{
+  this->turnosUlt = TURNOS_ULT;
 }
