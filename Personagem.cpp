@@ -10,7 +10,7 @@
 #include "ArmaLendaria.cpp"
 #include "Accessdata.cpp"
 
-const int TURNOS_ULT = 8;
+const int TURNOS_ULT = 9;
 
 using namespace std;
 
@@ -488,6 +488,7 @@ int Personagem::receberDano(int dano, int ataque)
 
     if (this->vida == 0)
     { // morreu
+    cout << endl  <<"Dano de morte: " << danoRecebido << endl;
       return -1;
     }
   }
@@ -525,6 +526,8 @@ void Personagem::descansar()
 ////////////////montrar coisa no main/////////////////////////////////////////
 int Personagem::mostrarAtributos(string jogadoratual)
 { //imprime o menu base com a arma
+  if (this->turnosUlt > 0)
+      this->turnosUlt--;
   cout << "\n\n-------------------" << jogadoratual << "------------------------";
   cout << "\nPersonagem: " << this->nome
        << " \nVida: " << this->vida << "/" << this->maxvida
@@ -533,8 +536,7 @@ int Personagem::mostrarAtributos(string jogadoratual)
        << "\nFalta " << this->turnosUlt << " turnos para poder usar a sua ULTIMATE"
        << endl;
 
-  if (this->turnosUlt > 0)
-    this->turnosUlt--;
+  
 
   return imprimiArmas();
 }

@@ -95,7 +95,7 @@ void imprimirmenu()
           }
           else if (dano == -1)
           { // o jogador inimigo morreu
-            cout << "\nO " << jogadorNaoatual << " morreu, voce venceu o jogo\n"
+            cout << "\nO " << jogadorNaoatual << " morreu\n"
                  << "\n O " << jogadoratual << " VENCEU\n"
                  << "OBRIGADO POR JOGAR :)\n";
             i = -1;
@@ -116,7 +116,7 @@ void imprimirmenu()
           }
           else if (dano == -1)
           {
-            cout << "\nO " << jogadorNaoatual << " morreu, voce venceu o jogo\n"
+            cout << "\nO " << jogadorNaoatual << " morreu\n"
                  << "\n O " << jogadoratual << " VENCEU\n"
                  << "OBRIGADO POR JOGAR :)\n";
             i = -1;
@@ -153,7 +153,7 @@ void imprimirmenu()
               }
               else if (dano == -1)
               {
-                cout << "\nO " << jogadorNaoatual << " morreu, voce venceu o jogo\n"
+                cout << "\nO " << jogadorNaoatual << " morreu\n"
                      << "\n O " << jogadoratual << " VENCEU\n"
                      << "OBRIGADO POR JOGAR :)\n";
                 i = -1;
@@ -186,7 +186,7 @@ void imprimirmenu()
               }
               else if (dano == -1)
               { // jogador inimigo morreu
-                cout << "\nO " << jogadorNaoatual << " morreu, voce venceu o jogo\n"
+                cout << "\nO " << jogadorNaoatual << " morreu\n"
                      << "\n O " << jogadoratual << " VENCEU\n"
                      << "OBRIGADO POR JOGAR :)\n";
                 i = -1;
@@ -294,7 +294,7 @@ void imprimirmenu()
             else if (dano == -1)
             { // o jogador inimigo morreu
               player1->mostraUlti(player1->retornaNome());
-              cout << "\nO " << jogadorNaoatual << " morreu, voce venceu o jogo\n"
+              cout << "\nO " << jogadorNaoatual << " morreu\n"
                    << "\n O " << jogadoratual << " VENCEU\n"
                    << "OBRIGADO POR JOGAR :)\n";
               i = -1;
@@ -327,7 +327,7 @@ void imprimirmenu()
             else if (dano == -1)
             {
               player1->mostraUlti(player1->retornaNome());
-              cout << "\nO " << jogadorNaoatual << " morreu, voce venceu o jogo\n"
+              cout << "\nO " << jogadorNaoatual << " morreu\n"
                    << "\n O " << jogadoratual << " VENCEU\n"
                    << "OBRIGADO POR JOGAR :)\n";
               i = -1;
