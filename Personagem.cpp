@@ -10,7 +10,7 @@
 #include "ArmaLendaria.cpp"
 #include "Accessdata.cpp"
 
-const int TURNOS_ULT = 10;
+const int TURNOS_ULT = 8;
 
 using namespace std;
 
