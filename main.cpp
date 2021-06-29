@@ -315,7 +315,7 @@ void imprimirmenu()
         }
         else
         {
-          if (player2->retornaturnosUlt() == -1)
+          if (player2->retornaturnosUlt() == 0)
           {
             dano = player1->receberDano(player2->atacaUlt(), player2->retornaUlt() == NULL ? 1 : 0);
             player2->resetaUlt();
