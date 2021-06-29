@@ -288,10 +288,12 @@ void imprimirmenu()
             player1->resetaUlt();
             if (dano == 0)
             { // errou o ataque
+              player1->mostraUlti(player1->retornaNome());
               cout << "Voce errou o ataque\n";
             }
             else if (dano == -1)
             { // o jogador inimigo morreu
+              player1->mostraUlti(player1->retornaNome());
               cout << "\nO " << jogadorNaoatual << " morreu, voce venceu o jogo\n"
                    << "\n O " << jogadoratual << " VENCEU\n"
                    << "OBRIGADO POR JOGAR :)\n";
@@ -313,16 +315,18 @@ void imprimirmenu()
         }
         else
         {
-          if (player2->retornaturnosUlt() == 0)
+          if (player2->retornaturnosUlt() == -1)
           {
             dano = player1->receberDano(player2->atacaUlt(), player2->retornaUlt() == NULL ? 1 : 0);
             player2->resetaUlt();
             if (dano == 0)
             {
+              player1->mostraUlti(player1->retornaNome());
               cout << "Voce errou o ataque\n";
             }
             else if (dano == -1)
             {
+              player1->mostraUlti(player1->retornaNome());
               cout << "\nO " << jogadorNaoatual << " morreu, voce venceu o jogo\n"
                    << "\n O " << jogadoratual << " VENCEU\n"
                    << "OBRIGADO POR JOGAR :)\n";
