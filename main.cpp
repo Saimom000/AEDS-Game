@@ -321,12 +321,12 @@ void imprimirmenu()
             player2->resetaUlt();
             if (dano == 0)
             {
-              player1->mostraUlti(player1->retornaNome());
+              player2->mostraUlti(player2->retornaNome());
               cout << "Voce errou o ataque\n";
             }
             else if (dano == -1)
             {
-              player1->mostraUlti(player1->retornaNome());
+              player2->mostraUlti(player2->retornaNome());
               cout << "\nO " << jogadorNaoatual << " morreu\n"
                    << "\n O " << jogadoratual << " VENCEU\n"
                    << "OBRIGADO POR JOGAR :)\n";

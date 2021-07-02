@@ -1,1 +1,1 @@
-5,3200,30,80,20,80,30,50,1,garra_letal,bio,
+5,3200,30,80,20,80,30,50,2,garra_letal,porrete,bio,
