@@ -146,7 +146,12 @@ void imprimirmenu()
 
             if (jogador == 1)
             {
-              dano = player2->receberDano(player1->usarMagia(magia), 1);
+              if(player1->retornaTamanhoMagia() != magia){
+                dano = player2->receberDano(player1->usarMagia(magia), 1);
+              }else{
+                dano = player2->receberDano(player1->usarMagia(-1), 1);
+              }
+              
               if (dano == 0)
               {
                 cout << "Voce errou o ataque\n";
@@ -179,7 +184,11 @@ void imprimirmenu()
             }
             else
             {
-              dano = player1->receberDano(player2->usarMagia(magia), 1);
+              if(player2->retornaTamanhoMagia() != magia){
+                dano = player1->receberDano(player2->usarMagia(magia), 1);
+              }else{
+                dano = player1->receberDano(player2->usarMagia(-1), 1);
+              }
               if (dano == 0)
               { // nao da pra desviar de magia, mas se precisar colocar esta aqui
                 cout << "Voce errou o ataque\n";

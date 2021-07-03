@@ -47,19 +47,21 @@ public:
   int receberDano(int dano, int ataque);     // magia e arma
   int usarMagia(int nummagia);               // magia
   void listarMagias();                       // magia
+  int retornaTamanhoMagia();                 //magia
   int atacarArma(int lenda);                 // arma
   void semDurabilidade();                    // arma
   void trocarArma();                         // arma
+  int verificaArmaTroca();                   // arma
   void descansar();                          // cura 120 de vida
   string retornaNome();                      // retorna o nome
-  int verificaArmaTroca();                   // arma
   void mostrarTodosAtributos();              // printa todos os atributos dos 2 jogadores
   void montarUltimates();                    // ulti
   int retornaturnosUlt();                    // ulti
-  void mostraUlti(string nome);              // teste
+  void mostraUlti(string nome);              // ulti
   Arma *retornaUlt();                        // ulti
   int atacaUlt();                            // ulti
   void resetaUlt();                          // ulti
+
 };
 Personagem::Personagem(string nome)
 {
@@ -574,4 +576,8 @@ Arma *Personagem::retornaUlt()
 void Personagem::resetaUlt()
 {
   this->turnosUlt = TURNOS_ULT;
+}
+int Personagem::retornaTamanhoMagia()
+{
+  return this->magias.size()+1;
 }
