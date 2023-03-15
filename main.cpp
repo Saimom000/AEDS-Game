@@ -43,7 +43,7 @@ void jogadormenu(string atacante, int tipo, bool mostraUlt)
   }
 }
 
-void imprimirmenu()
+void imprimirMenu()
 {
   setlocale(LC_ALL, "portuguese");
 
@@ -365,7 +365,7 @@ void imprimirmenu()
   }
 }
 
-void imprimirinicio()
+void imprimirInicio()
 {
   int i, num_perso, num_perso2;
 
@@ -457,7 +457,7 @@ void imprimirinicio()
 
   cout << "\n\n\n";
 
-  imprimirmenu();
+  imprimirMenu();
 }
 
 int main()
@@ -470,7 +470,7 @@ int main()
 
     if (n == 1)
     {
-      imprimirinicio();
+      imprimirInicio();
     }
     else if (n == 2)
     {

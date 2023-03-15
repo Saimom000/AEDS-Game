@@ -61,11 +61,12 @@ public:
   Arma *retornaUlt();                        // ulti
   int atacaUlt();                            // ulti
   void resetaUlt();                          // ulti
+  ~Personagem();
 
 };
 Personagem::Personagem(string nome)
 {
-  srand(time(0));
+  srand((unsigned)time(0));
 
   this->nome = nome;
 

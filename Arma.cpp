@@ -71,7 +71,7 @@ void Arma::fazerArmas(string nome)
 }
 Arma::Arma(string nome)
 {
-  srand(time(0));
+  srand((unsigned)time(0));
 
   this->nome = nome;
 
